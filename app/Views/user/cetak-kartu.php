@@ -32,7 +32,7 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-image: url("<?= base_url('assets-user/image/template-card-depan.png') ?>");
+            background-image: url("<?= $depan ?>");
             background-size: cover;
             background-repeat: no-repeat;
             /* Prevents image from repeating if it doesn't perfectly fill */
@@ -47,7 +47,7 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-image: url("<?= base_url('assets-user/image/template-card-belakang.png') ?>");
+            background-image: url("<?= $belakang ?>");
             background-size: cover;
             background-repeat: no-repeat;
             /* Prevents image from repeating if it doesn't perfectly fill */

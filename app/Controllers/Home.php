@@ -237,10 +237,12 @@ class Home extends BaseController
 
                 $data['alumni'] = $alumniModel->where('alumni_nim', $nim)->first();
                 $data['prodi'] = $prodinama;
-                $depan = new \CodeIgniter\Files\File('assets-user/image/template-card-belakang.png');
+                $depan = new \CodeIgniter\Files\File('assets-user/image/template-card-depan.png');
+                $belakang = new \CodeIgniter\Files\File('assets-user/image/template-card-belakang.png');
                 $data['depan'] = $depan;
+                $data['belakang'] = $belakang;
                 $html = view('user/cetak-kartu', $data);
-                dd($depan->getRealPath());
+                // dd($depan->getRealPath());
                 $options = new Options();
                 $options->set('isRemoteEnabled', true);
                 $options->set('isHtml5ParserEnabled', true);
