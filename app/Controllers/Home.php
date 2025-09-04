@@ -239,8 +239,8 @@ class Home extends BaseController
                 $data['prodi'] = $prodinama;
                 $depan = new \CodeIgniter\Files\File('assets-user/image/template-card-depan.png');
                 $belakang = new \CodeIgniter\Files\File('assets-user/image/template-card-belakang.png');
-                $data['depan'] = $depan;
-                $data['belakang'] = $belakang;
+                $data['depan'] = $depan->getRealPath();
+                $data['belakang'] = $belakang->getRealPath();
                 $html = view('user/cetak-kartu', $data);
                 // dd($depan->getRealPath());
                 $options = new Options();
