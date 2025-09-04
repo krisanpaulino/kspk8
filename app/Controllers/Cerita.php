@@ -33,7 +33,7 @@ class Cerita extends BaseController
             'title' => 'Cerita Alumni Approved',
             'cerita' => $model->findCerita('approved')
         ];
-        return view('admin/cerita_status', $data);
+        return view('admin/cerita_index', $data);
     }
     public function rejected()
     {
@@ -42,7 +42,7 @@ class Cerita extends BaseController
             'title' => 'Cerita Alumni Rejected',
             'cerita' => $model->findCerita('rejected')
         ];
-        return view('admin/cerita_status', $data);
+        return view('admin/cerita_index', $data);
     }
     public function approve()
     {
