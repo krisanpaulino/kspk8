@@ -1,4 +1,0 @@
-[30-Jul-2025 19:54:04 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Interface "Symfony\Component\HttpKernel\KernelInterface" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/http-kernel/Kernel.php:58
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/http-kernel/Kernel.php on line 58

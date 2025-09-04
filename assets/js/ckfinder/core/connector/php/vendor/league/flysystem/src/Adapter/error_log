@@ -1,4 +1,0 @@
-[30-Jul-2025 19:54:02 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "League\Flysystem\Adapter\AbstractAdapter" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/league/flysystem/src/Adapter/Local.php:18
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/league/flysystem/src/Adapter/Local.php on line 18

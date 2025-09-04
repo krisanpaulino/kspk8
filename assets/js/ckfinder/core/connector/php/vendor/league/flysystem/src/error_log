@@ -1,2 +1,0 @@
-[30-Jul-2025 19:54:02 Asia/Jakarta] PHP Fatal error:  Trait "League\Flysystem\Plugin\PluggableTrait" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/league/flysystem/src/Filesystem.php on line 19
-[30-Jul-2025 19:54:02 Asia/Jakarta] PHP Fatal error:  Trait "League\Flysystem\Plugin\PluggableTrait" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/league/flysystem/src/MountManager.php on line 24

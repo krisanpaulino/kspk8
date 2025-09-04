@@ -66,8 +66,11 @@
 <?= $this->endSection(); ?>
 <?= $this->section('scripts'); ?>
 <script>
-    CKEDITOR.replace('editor');
-    CKEDITOR.replace('editor1');
-    CKEDITOR.replace('editor2');
+    CKEDITOR.replace('editor2', {
+        filebrowserBrowseUrl: '/kspk8/assets/js/ckfinder/ckfinder.html',
+        filebrowserUploadUrl: '/kspk8/assets/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        filebrowserWindowWidth: '1000',
+        filebrowserWindowHeight: '700'
+    });
 </script>
 <?= $this->endSection(); ?>

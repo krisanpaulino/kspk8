@@ -1,4 +1,0 @@
-[30-Jul-2025 19:54:01 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Aws\Api\Parser\AbstractParser" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/Api/Parser/AbstractRestParser.php:14
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/Api/Parser/AbstractRestParser.php on line 14

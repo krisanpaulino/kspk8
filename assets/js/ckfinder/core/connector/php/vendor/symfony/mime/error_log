@@ -1,4 +1,0 @@
-[30-Jul-2025 19:54:05 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Interface "Symfony\Component\Mime\MimeTypeGuesserInterface" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/mime/FileBinaryMimeTypeGuesser.php:22
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/mime/FileBinaryMimeTypeGuesser.php on line 22

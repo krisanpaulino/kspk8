@@ -1,4 +1,0 @@
-[30-Jul-2025 19:54:02 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Interface "GuzzleHttp\ClientInterface" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/guzzlehttp/guzzle/src/Client.php:26
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/guzzlehttp/guzzle/src/Client.php on line 26

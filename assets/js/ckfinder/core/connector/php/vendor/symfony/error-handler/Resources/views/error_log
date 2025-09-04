@@ -1,7 +1,0 @@
-[30-Jul-2025 19:54:04 Asia/Jakarta] PHP Warning:  Undefined variable $exceptionMessage in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/error-handler/Resources/views/exception_full.html.php on line 1
-[30-Jul-2025 19:54:04 Asia/Jakarta] PHP Warning:  Undefined variable $statusCode in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/error-handler/Resources/views/exception_full.html.php on line 1
-[30-Jul-2025 19:54:04 Asia/Jakarta] PHP Warning:  Undefined variable $statusText in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/error-handler/Resources/views/exception_full.html.php on line 1
-[30-Jul-2025 19:54:04 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/error-handler/Resources/views/exception_full.html.php:5
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/error-handler/Resources/views/exception_full.html.php on line 5

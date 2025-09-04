@@ -1,8 +1,0 @@
-[30-Jul-2025 19:54:01 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Aws\Crypto\AbstractCryptoClient" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/S3/Crypto/S3EncryptionClient.php:31
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/S3/Crypto/S3EncryptionClient.php on line 31
-[30-Jul-2025 19:54:01 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Aws\Crypto\AbstractCryptoClientV2" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/S3/Crypto/S3EncryptionClientV2.php:82
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/S3/Crypto/S3EncryptionClientV2.php on line 82

@@ -1,8 +1,0 @@
-[30-Jul-2025 19:54:04 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Symfony\Component\HttpFoundation\Response" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/http-foundation/BinaryFileResponse.php:26
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/http-foundation/BinaryFileResponse.php on line 26
-[30-Jul-2025 19:54:04 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Symfony\Component\HttpFoundation\ParameterBag" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/http-foundation/ServerBag.php:21
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/http-foundation/ServerBag.php on line 21

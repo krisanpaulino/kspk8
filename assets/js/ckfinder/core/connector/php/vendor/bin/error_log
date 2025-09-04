@@ -1,5 +1,0 @@
-[30-Jul-2025 19:54:02 Asia/Jakarta] PHP Warning:  Undefined variable $argv in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/bin/jp.php on line 30
-[30-Jul-2025 19:54:02 Asia/Jakarta] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/bin/jp.php:30
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/bin/jp.php on line 30

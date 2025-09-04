@@ -9,10 +9,10 @@ CKEDITOR.editorConfig = function (config) {
 	// https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
-	config.filebrowserBrowseUrl = '/assets/js/ckfinder/ckfinder.html';
-	config.filebrowserImageBrowseUrl = '/assets/js/ckfinder/ckfinder.html?Type=Images';
-	config.filebrowserUploadUrl = '/assets/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
-	config.filebrowserImageUploadUrl = '/assets/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
+	config.filebrowserBrowseUrl = '/kspk8/assets/js/ckfinder/ckfinder.html';
+	config.filebrowserImageBrowseUrl = '/kspk8/assets/js/ckfinder/ckfinder.html?Type=Images';
+	config.filebrowserUploadUrl = '/kspk8/assets/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
+	config.filebrowserImageUploadUrl = '/kspk8/assets/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
 	config.filebrowserWindowWidth = '1000';
 	config.filebrowserWindowHeight = '700';
 	config.toolbarGroups = [

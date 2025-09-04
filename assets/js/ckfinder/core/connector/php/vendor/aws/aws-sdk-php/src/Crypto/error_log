@@ -1,8 +1,0 @@
-[30-Jul-2025 19:54:01 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Aws\Crypto\MaterialsProvider" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/Crypto/KmsMaterialsProvider.php:16
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/Crypto/KmsMaterialsProvider.php on line 16
-[30-Jul-2025 19:54:01 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Aws\Crypto\MaterialsProviderV2" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/Crypto/KmsMaterialsProviderV2.php:12
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/Crypto/KmsMaterialsProviderV2.php on line 12

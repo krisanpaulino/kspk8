@@ -1,4 +1,0 @@
-[30-Jul-2025 19:54:03 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Undefined constant "STDIN" in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/error-handler/Resources/bin/extract-tentative-return-types.php:43
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/error-handler/Resources/bin/extract-tentative-return-types.php on line 43

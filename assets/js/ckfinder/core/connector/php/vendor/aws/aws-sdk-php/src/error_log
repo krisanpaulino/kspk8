@@ -1,4 +1,0 @@
-[30-Jul-2025 19:54:01 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Interface "Aws\HashInterface" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/PhpHash.php:7
-Stack trace:
-#0 {main}
-  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/PhpHash.php on line 7
