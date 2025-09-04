@@ -66,10 +66,6 @@
 <?= $this->endSection(); ?>
 <?= $this->section('scripts'); ?>
 <script>
-    CKEDITOR.replace('editor2', {
-
-        filebrowserWindowWidth: '1000',
-        filebrowserWindowHeight: '700'
-    });
+    CKEDITOR.replace('editor2');
 </script>
 <?= $this->endSection(); ?>
