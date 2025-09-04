@@ -242,7 +242,7 @@ class Home extends BaseController
                 $data['depan'] = base64_encode(file_get_contents($depan));
                 $data['belakang'] = $belakang->getRealPath();
                 $html = view('user/cetak-kartu', $data);
-                // dd($depan->getRealPath());
+                dd($data['depan']);
                 $options = new Options();
                 $options->set('isRemoteEnabled', true);
                 $options->set('isHtml5ParserEnabled', true);
