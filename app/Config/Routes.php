@@ -77,8 +77,8 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->post('page/update', 'Page::update');
 
     $routes->get('cerita-alumni', 'Cerita::index');
-    $routes->get('cerita-alumni/approved', 'Cerita::index');
-    $routes->get('cerita-alumni/rejected', 'Cerita::index');
+    $routes->get('cerita-alumni/approved', 'Cerita::approved');
+    $routes->get('cerita-alumni/rejected', 'Cerita::rejected');
     $routes->get('cerita-alumni/(:num)', 'Cerita::detail/$1');
     $routes->post('cerita-alumni/approve', 'Cerita::approve');
     $routes->post('cerita-alumni/reject', 'Cerita::reject');
