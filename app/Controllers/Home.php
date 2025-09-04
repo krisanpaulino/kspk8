@@ -239,6 +239,7 @@ class Home extends BaseController
                 $data['prodi'] = $prodinama;
 
                 $html = view('user/cetak-kartu', $data);
+                dd($html);
                 $options = new Options();
                 $options->set('isRemoteEnabled', true);
                 $options->set('isHtml5ParserEnabled', true);
