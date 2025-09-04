@@ -60,7 +60,7 @@ class CeritaModel extends Model
     function findCerita($status = null)
     {
         $this->orderBy('cerita_tanggal', 'desc');
-        $this->join('alumni', 'alumni.alumni_nim = cerita.alumni_nim');
+        $this->join('alumni', 'alumni.alumni_nim = cerita.alumni_nim', 'left');
         $this->groupBy('cerita_id');
         if ($status != null)
             $this->where('cerita_status', $status);
