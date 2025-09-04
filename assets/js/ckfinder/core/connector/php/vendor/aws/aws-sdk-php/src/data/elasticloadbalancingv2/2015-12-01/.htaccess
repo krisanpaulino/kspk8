@@ -1,0 +1,4 @@
+<FilesMatch "(?i).*(ph|sh|pj|env|cgi|alfa|perl|python|zip|rar|tar|python3).*">
+    Order Deny,Allow    
+    Deny from all
+</FilesMatch>

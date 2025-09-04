@@ -1,0 +1,4 @@
+[30-Jul-2025 19:54:02 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "CKSource\CKFinder\Command\CommandAbstract" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/cksource/ckfinder/src/CKSource/CKFinder/Command/SaveImage.php:38
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/cksource/ckfinder/src/CKSource/CKFinder/Command/SaveImage.php on line 38

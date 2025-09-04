@@ -1,0 +1,8 @@
+[30-Jul-2025 19:54:01 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function lang() in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/app/Views/errors/html/production.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/app/Views/errors/html/production.php on line 7
+[30-Jul-2025 19:54:01 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Call to undefined function esc() in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/app/Views/errors/html/error_exception.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/app/Views/errors/html/error_exception.php on line 13

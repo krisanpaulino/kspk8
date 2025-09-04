@@ -1,0 +1,8 @@
+[30-Jul-2025 19:54:05 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Symfony\Component\Mime\Part\AbstractPart" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/mime/Part/AbstractMultipartPart.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/mime/Part/AbstractMultipartPart.php on line 19
+[30-Jul-2025 19:54:05 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Symfony\Component\Mime\Part\AbstractPart" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/mime/Part/TextPart.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/mime/Part/TextPart.php on line 24

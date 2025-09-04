@@ -1,0 +1,16 @@
+[30-Jul-2025 19:54:03 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Monolog\Handler\AbstractProcessingHandler" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/monolog/monolog/src/Monolog/Handler/ChromePHPHandler.php:25
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/monolog/monolog/src/Monolog/Handler/ChromePHPHandler.php on line 25
+[30-Jul-2025 19:54:03 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Monolog\Handler\AbstractProcessingHandler" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/monolog/monolog/src/Monolog/Handler/CouchDBHandler.php:22
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/monolog/monolog/src/Monolog/Handler/CouchDBHandler.php on line 22
+[30-Jul-2025 19:54:03 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Monolog\Handler\BufferHandler" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/monolog/monolog/src/Monolog/Handler/DeduplicationHandler.php:36
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/monolog/monolog/src/Monolog/Handler/DeduplicationHandler.php on line 36
+[30-Jul-2025 19:54:03 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Monolog\Handler\AbstractProcessingHandler" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/monolog/monolog/src/Monolog/Handler/RedisHandler.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/monolog/monolog/src/Monolog/Handler/RedisHandler.php on line 28

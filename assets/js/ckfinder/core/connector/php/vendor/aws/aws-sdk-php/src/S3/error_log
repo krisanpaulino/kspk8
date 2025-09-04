@@ -1,0 +1,5 @@
+[30-Jul-2025 19:54:01 Asia/Jakarta] PHP Fatal error:  Trait "Aws\Signature\SignatureTrait" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/S3/PostObjectV4.php on line 16
+[30-Jul-2025 19:54:01 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class "Aws\AwsClient" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/S3/S3Client.php:225
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/aws/aws-sdk-php/src/S3/S3Client.php on line 225

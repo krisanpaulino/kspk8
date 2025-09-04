@@ -1,0 +1,4 @@
+[30-Jul-2025 19:54:05 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Interface "Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface" not found in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/var-dumper/Command/Descriptor/HtmlDescriptor.php:25
+Stack trace:
+#0 {main}
+  thrown in /home/unwi3891/public_html/_subdomain/kspk.unwira.ac.id/assets/js/ckfinder/core/connector/php/vendor/symfony/var-dumper/Command/Descriptor/HtmlDescriptor.php on line 25
