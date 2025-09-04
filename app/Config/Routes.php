@@ -30,6 +30,7 @@ $routes->get('/expo/(:any)', 'Home::expodetail/$1');
 
 $routes->get('/auth', 'Auth::index');
 $routes->post('login', 'Auth::login');
+$routes->post('logout', 'Auth::logout');
 
 $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('/', 'Dashboard::admin');
