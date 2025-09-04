@@ -32,7 +32,7 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-image: url("<?= $depan ?>");
+            background-image: url("data:image/jpeg;base64, <?= $depan ?>");
             background-size: cover;
             background-repeat: no-repeat;
             /* Prevents image from repeating if it doesn't perfectly fill */
