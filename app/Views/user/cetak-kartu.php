@@ -47,7 +47,7 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-image: url("<?= base64_encode(file_get_contents($bgBelakang)) ?>");
+            background-image: url("data:image/jpeg;base64, <?= $belakang ?>");
             background-size: cover;
             background-repeat: no-repeat;
             /* Prevents image from repeating if it doesn't perfectly fill */
@@ -111,7 +111,6 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
 
     <!-- Halaman Depan -->
     <div class="kartu bg-depan">
-        <img src="<?= $depan ?>">
 
         <div class="nama"><?= $alumni->alumni_nama; ?></div>
         <div class="info">
