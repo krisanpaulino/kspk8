@@ -239,7 +239,7 @@ class Home extends BaseController
                 $data['prodi'] = $prodinama;
                 $depan = new \CodeIgniter\Files\File('assets-user/image/template-card-depan.png');
                 $belakang = new \CodeIgniter\Files\File('assets-user/image/template-card-belakang.png');
-                $data['depan'] = APPPATH . '/../assets-user/image/template-card-depan.png';
+                $data['depan'] = base64_encode(file_get_contents(APPPATH . '/../assets-user/image/template-card-depan.png'));
                 $data['belakang'] = $belakang->getRealPath();
                 $html = view('user/cetak-kartu', $data);
                 // dd();
