@@ -28,6 +28,7 @@ $config = array();
 $config['authentication'] = function () {
     if (session('admin_logged_in'))
         return true;
+    return false;
 };
 
 /*============================ License Key ============================================*/
