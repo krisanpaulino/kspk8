@@ -18,4 +18,5 @@ application/logs/*
 /vendor/
 
 assets/js/*
-writable/
+writable
+writable/logs/*

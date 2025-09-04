@@ -15,9 +15,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use CKSource\CKFinder\CKFinder;
 
-if ($_GET['command'] == 'QuickUpload')
-    $ckfinder = new CKFinder(__DIR__ . '/../../../config.php');
-else {
+$ckfinder = new CKFinder(__DIR__ . '/../../../config.php');
+if ($_REQUEST['command'] == 'QuickUpload')
     $ckfinder = new CKFinder(__DIR__ . '/../../../config2.php');
-}
-$ckfinder->run();
+$ckfinder->run();    
+// echo $_REQUEST['command'];
