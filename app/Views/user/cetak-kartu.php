@@ -111,7 +111,7 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
 
     <!-- Halaman Depan -->
     <div class="kartu bg-depan">
-        <img src="<?= base_url('assets-user/image/template-card-belakang.png') ?>">
+        <img src="<?= $depan ?>">
 
         <div class="nama"><?= $alumni->alumni_nama; ?></div>
         <div class="info">
