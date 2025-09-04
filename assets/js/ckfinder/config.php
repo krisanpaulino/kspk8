@@ -26,7 +26,8 @@ $config = array();
 // https://ckeditor.com/docs/ckfinder/ckfinder3-php/configuration.html#configuration_options_authentication
 
 $config['authentication'] = function () {
-    return true;
+    if (session('admin_logged_in'))
+        return true;
 };
 
 /*============================ License Key ============================================*/
