@@ -18,6 +18,7 @@ $routes->get('/alumni', 'Home::alumni');
 $routes->get('/alumnidownload', 'Home::alumnidownload');
 $routes->get('/kartualumni', 'Home::kartualumni');
 $routes->post('/cetakkartu', 'Home::cetakkartu');
+$routes->get('/cetakkartu', 'Home::cetakkartu');
 $routes->get('/cerita', 'Home::cerita');
 $routes->get('/detailcerita/(:any)', 'Home::detailcerita/$1');
 $routes->get('/add_cerita', 'Home::add_cerita');
