@@ -60,6 +60,8 @@
 <?= $this->endSection(); ?>
 <?= $this->section('scripts'); ?>
 <script>
-    CKEDITOR.replace('editor2');
+    CKEDITOR.replace('editor2', {
+        extraPlugins: 'justify'
+    });
 </script>
 <?= $this->endSection(); ?>

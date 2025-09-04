@@ -115,8 +115,8 @@
 <?= $this->section('scripts'); ?>
 <script src="<?= base_url() ?>/assets/plugins/ckeditor/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace('editor');
-    CKEDITOR.replace('editor1');
-    CKEDITOR.replace('editor2');
+    CKEDITOR.replace('editor', {
+        extraPlugins: 'justify'
+    });
 </script>
 <?= $this->endSection(); ?>
