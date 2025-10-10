@@ -21,3 +21,4 @@ assets/js/*
 writable
 writable/logs/*
 /writable
+/writable/debugbar
