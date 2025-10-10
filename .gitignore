@@ -20,3 +20,4 @@ application/logs/*
 assets/js/*
 writable
 writable/logs/*
+/writable
