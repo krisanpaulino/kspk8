@@ -34,7 +34,7 @@ $routes->get('/auth', 'Auth::index');
 $routes->post('login', 'Auth::login');
 $routes->post('auth/logout', 'Auth::logout');
 
-$routes->group('admin', ['filter' => 'admin'], function ($routes) {
+$routes->group('admin', function ($routes) {
     $routes->get('/', 'Dashboard::admin');
     $routes->get('alumni', 'Alumni::index');
     $routes->get('alumni/(:num)', 'Alumni::detail/$1');
@@ -80,6 +80,8 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->post('page/update', 'Page::update');
 
     $routes->get('cerita-alumni', 'Cerita::index');
+    $routes->get('cerita-alumni/tambah', 'Cerita::tambah');
+    $routes->post('cerita-alumni/create', 'Cerita::store');
     $routes->get('cerita-alumni/approved', 'Cerita::approved');
     $routes->get('cerita-alumni/rejected', 'Cerita::rejected');
     $routes->get('cerita-alumni/(:num)', 'Cerita::detail/$1');

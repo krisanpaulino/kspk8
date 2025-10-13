@@ -13,8 +13,14 @@
                 </ol>
             </nav>
         </div>
+        <div class="ms-auto btn-group">
+            <a href="<?= base_url('admin/cerita-alumni/tambah') ?>" class="btn btn-primary">
+                <i class="bx bx-plus"></i> Tambah Cerita
+            </a>
+        </div>
     </div>
     <!--end breadcrumb-->
+
     <?php if (session()->has('success')) : ?>
         <div class="alert alert-success border-0 bg-success alert-dismissible fade show">
             <div class="text-white"><?= session('success') ?></div>

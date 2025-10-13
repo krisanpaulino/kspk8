@@ -103,4 +103,32 @@ class Cerita extends BaseController
         return redirect()->to('admin/cerita-alumni/' . $cerita_id)
             ->with('success', 'Cerita berhasil diupdate!');
     }
+
+    public function tambah()
+    {
+        $data = [
+            'title' => 'Tambah Cerita Alumni',
+            'url' => 'store'
+        ];
+        return view('admin/cerita_tambah', $data);
+    }
+
+    public function store()
+    {
+        $datacerita = $this->request->getPost();
+
+        $datacerita['cerita_tanggal'] = date('Y-m-d H:i:s');
+        $datacerita['cerita_status'] = 'pending';
+
+        $model = new CeritaModel();
+        $cerita_id = $model->insert($datacerita, true);
+
+        if ($cerita_id == false) {
+            return redirect()->back()->with('errors', $model->errors())
+                ->with('error', 'Gagal menambahkan cerita! Data tidak lengkap')->withInput();
+        }
+
+        return redirect()->to('admin/cerita-alumni')
+            ->with('success', 'Cerita alumni berhasil ditambahkan!');
+    }
 }

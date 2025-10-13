@@ -30,9 +30,9 @@
             }
             ?>
         </div>
-        <center>
-            <!-- <a href="<?= base_url('/expo') ?>" class="btn btn-sm btn-secondary mt-5"> Lihat semua expo</a> -->
-        </center>
+        <div class="d-flex justify-content-center mt-4">
+            <?= $pager->links('paginasi', 'custom_pagination') ?>
+        </div>
     </div>
 </section>
 
