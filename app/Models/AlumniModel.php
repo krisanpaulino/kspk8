@@ -42,9 +42,9 @@ class AlumniModel extends Model
         'prodi_id' => 'required',
         'alumni_tahunlulus' => 'required',
         'alumni_nama' => 'required',
-        'alumni_jeniskelamin' => 'required',
-        'alumni_telepon' => 'required',
-        'alumni_email' => 'required',
+        // 'alumni_jeniskelamin' => 'required',
+        // 'alumni_telepon' => 'required',
+        // 'alumni_email' => 'required',
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
@@ -73,8 +73,14 @@ class AlumniModel extends Model
     }
     function findSingle($alumni_id)
     {
-        $this->join('prodi', 'prodi.prodi_id = alumni.prodi_id');
+        $this->join('prodi', 'prodi.prodi_id = alumni.prodi_id', 'left');
         $result = $this->find($alumni_id);
+        return $result;
+    }
+    function findByNim($alumni_nim)
+    {
+        $this->where('alumni_nim', $alumni_nim);
+        $result = $this->first();
         return $result;
     }
     function findTahun()

@@ -36,6 +36,7 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('/', 'Dashboard::admin');
     $routes->get('alumni', 'Alumni::index');
     $routes->get('alumni/(:num)', 'Alumni::detail/$1');
+    $routes->post('alumni/upload', 'Alumni::uploadExcel');
     $routes->post('alumni/insert', 'Alumni::insert');
     $routes->post('alumni/update', 'Alumni::update');
     $routes->post('alumni/delete', 'Alumni::delete');
@@ -80,6 +81,8 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('cerita-alumni/approved', 'Cerita::approved');
     $routes->get('cerita-alumni/rejected', 'Cerita::rejected');
     $routes->get('cerita-alumni/(:num)', 'Cerita::detail/$1');
+    $routes->get('cerita-alumni/edit/(:num)', 'Cerita::edit/$1');
+    $routes->post('cerita-alumni/update', 'Cerita::update');
     $routes->post('cerita-alumni/approve', 'Cerita::approve');
     $routes->post('cerita-alumni/reject', 'Cerita::reject');
     $routes->post('page/update', 'Page::update');

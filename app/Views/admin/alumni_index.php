@@ -15,6 +15,7 @@
         </div>
         <div class="ms-auto">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form">Tambah</button>
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#excel">Upload Excel</button>
             <!-- Modal -->
             <div class="modal fade" id="form" tabindex="-1" aria-labelledby="formLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -103,6 +104,35 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="excel" tabindex="-1" aria-labelledby="formLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="formLabel">Upload Data Alumni</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="<?= base_url('admin/alumni/upload') ?>" method="post" enctype="multipart/form-data">
+                            <?= csrf_field() ?>
+                            <div class="modal-body">
+                                <div class="form-group mb-4">
+                                    <label for="file">File Excel</label>
+                                    <input type="file" class="form-control <?= (isset(session('errors')['file'])) ? 'is-invalid' : '' ?>" id="file" name="file" value="<?= old('file') ?>">
+                                    <div class="invalid-feedback">
+                                        <?php if (isset(session('errors')['file'])) : ?>
+                                            <?= session('errors')['file'] ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary">Upload</button>
                             </div>
                         </form>
                     </div>

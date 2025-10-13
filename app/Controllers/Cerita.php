@@ -68,4 +68,39 @@ class Cerita extends BaseController
         return redirect()->back()
             ->with('success', 'Cerita berhasil diapprove!!');
     }
+
+    public function edit($cerita_id)
+    {
+        $model = new CeritaModel();
+        $data = [
+            'title' => 'Edit Cerita Alumni',
+            'cerita' => $model->findSingle($cerita_id)
+        ];
+        return view('admin/cerita_edit', $data);
+    }
+
+    public function update()
+    {
+        $cerita_id = $this->request->getPost('cerita_id');
+        $cerita_judul = $this->request->getPost('cerita_judul');
+        $cerita_isi = $this->request->getPost('cerita_isi');
+
+        $validationRules = [
+            'cerita_judul' => 'required',
+            'cerita_isi' => 'required',
+        ];
+
+        if (!$this->validate($validationRules)) {
+            return redirect()->back()->withInput()->with('validation', $this->validator);
+        }
+
+        $model = new CeritaModel();
+        $model->update($cerita_id, [
+            'cerita_judul' => $cerita_judul,
+            'cerita_isi' => $cerita_isi,
+        ]);
+
+        return redirect()->to('admin/cerita-alumni/' . $cerita_id)
+            ->with('success', 'Cerita berhasil diupdate!');
+    }
 }

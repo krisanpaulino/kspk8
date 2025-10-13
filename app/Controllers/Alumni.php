@@ -88,4 +88,49 @@ class Alumni extends BaseController
         $model->delete();
         return redirect()->back()->with('success', 'Data alumni dihapus!');
     }
+
+    public function uploadExcel()
+    {
+        $file_excel = $this->request->getFile('file');
+        $ext = $file_excel->getClientExtension();
+        if ($ext == 'xls') {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        } else {
+            $render = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+        $spreadsheet = $render->load($file_excel);
+
+        $data = $spreadsheet->getActiveSheet()->toArray();
+        foreach ($data as $x => $row) {
+            if ($x == 0) {
+                continue;
+            }
+
+            $jenis_kelamin = $row[5] == null ? '-' : $row[5];
+            $alumni_telepon = $row[6] == null ? '-' : $row[6];
+            $alumni_email = $row[7] == null ? '-' : $row[7];
+            $insert = [
+                'alumni_nim' => $row[0],
+                'prodi_id' => $row[1],
+                'alumni_tahunlulus' => $row[2],
+                'alumni_nama' => $row[3],
+                'alumni_jeniskelamin' => $jenis_kelamin,
+                'alumni_telepon' => $alumni_telepon,
+                'alumni_email' => $alumni_email,
+            ];
+            // dd($insert);
+
+            $model = new AlumniModel();
+
+            // dd($model->findByNim($insert['alumni_nim']));
+            if ($model->findByNim($insert['alumni_nim']) == null) {
+                if (!$id = $model->insert($insert)) {
+                    $errors = $model->errors();
+                    dd($errors);
+                }
+            }
+        }
+
+        return redirect()->back()->with('success', 'Data alumni berhasil diupload!');
+    }
 }

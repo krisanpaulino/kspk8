@@ -33,7 +33,14 @@
         <div class="card-body">
             <h5 class="card-title">Cerita Alumni</h5>
             <hr />
-
+            <!-- Edit Button -->
+            <div class="row">
+                <div class="col">
+                    <a href="<?= base_url('admin/cerita-alumni/edit/' . $cerita->cerita_id) ?>" class="btn btn-warning mb-3">
+                        <i class="bx bx-edit"></i> Edit
+                    </a>
+                </div>
+            </div>
             <?php if ($cerita->cerita_status == 'pending') : ?>
                 <div class="d-flex justify-content-between mb-4">
                     <button type="button" data-bs-toggle="modal" data-bs-target="#approve" data-id="<?= $cerita->cerita_id ?>" class="btn btn-primary">Approve</button>
