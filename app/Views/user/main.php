@@ -81,7 +81,7 @@
                                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/page/karier') ?>">Tentang</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/karier') ?>" target="_blank">Kelas persiapan</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/expo') ?>">Career expo</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?= base_url('/') ?>">Mitra</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= base_url('/page/partner') ?>">Mitra</a></li>
                             </ul>
                         </li>
 
