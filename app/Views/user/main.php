@@ -110,7 +110,9 @@
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="single-footer-widget">
                         <h6 class="footer_title">KSPK - Unwira</h6>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis, quam deserunt assumenda officiis eaque perspiciatis adipisci quasi eveniet laboriosam. Illum eos fugit ipsa vero sed quia repudiandae. Nobis, rerum veniam.</p>
+                        <p>Dengan membentuk Kantor Kerja Sama dan Pusat Karier (KSPK) UNWIRA berkomitmen untuk meningkatkan kerja sama dengan berbagai Instansi/mitra untuk dapat membangun keunggulan dan kesiapan mahasiswa/i dalam menghadapi perubahan sosial, budaya, kemajuan ilmu pengetahuan dan teknologi serta kemajuan dunia industri atau dunia kerja yang dinamis, pesat dan variatif.
+
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
@@ -122,9 +124,9 @@
                     <div class="single-footer-widget instafeed">
                         <h6 class="footer_title" style="text-align: right;">Kontak</h6>
                         <ul class="list_style" style="text-align: right;">
-                            <li>Email : </li>
-                            <li>Telp :</li>
-                            <li>Address :</li>
+                            <li>Email : kspk@unwira.ac.id</li>
+                            <li>Telp : 081238317060</li>
+                            <li>Address : Jalan San Juan Penfui Timur</li>
                             <li><a href="https://unwira.ac.id/" target="_blank">Unwira.ac.id</a></li>
                         </ul>
                     </div>
