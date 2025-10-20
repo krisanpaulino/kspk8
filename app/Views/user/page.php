@@ -5,7 +5,7 @@
         <div class="section_title text-center">
             <h2 class="title_color">KSPK - Unwira</h2>
         </div>
-        <div class="row mb_30">
+        <div class="col">
             <?= $page->page_content ?>
         </div>
     </div>

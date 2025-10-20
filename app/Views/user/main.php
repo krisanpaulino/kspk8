@@ -22,6 +22,12 @@
     <link rel="stylesheet" href="<?= base_url('/') ?>assets-user/css/style.css">
     <link rel="stylesheet" href="<?= base_url('/') ?>assets-user/css/responsive.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        p {
+            display: block;
+            /* Ensures default block-level behavior */
+        }
+    </style>
 </head>
 
 <body>
