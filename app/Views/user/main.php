@@ -27,6 +27,10 @@
             display: block;
             /* Ensures default block-level behavior */
         }
+
+        b {
+            font-weight: 800;
+        }
     </style>
 </head>
 

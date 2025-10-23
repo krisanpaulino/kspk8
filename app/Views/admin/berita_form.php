@@ -67,7 +67,7 @@
 <?= $this->section('scripts'); ?>
 <script>
     CKEDITOR.replace('editor2', {
-        extraPlugins: 'justify'
+        extraPlugins: ['justify', 'grid']
     });
 </script>
 <?= $this->endSection(); ?>

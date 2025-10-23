@@ -124,7 +124,7 @@
 <script src="<?= base_url() ?>/assets/plugins/ckeditor/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('editor', {
-        extraPlugins: 'justify'
+        extraPlugins: ['justify', 'grid']
     });
 </script>
 <?= $this->endSection(); ?>
