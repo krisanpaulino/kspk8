@@ -33,7 +33,7 @@
 <?= $this->section('scripts'); ?>
 <script>
     CKEDITOR.replace('editor2', {
-        extraPlugins: ['justify', 'grid']
+        extraPlugins: ['justify', 'btgrid']
     });
 </script>
 <?= $this->endSection(); ?>
