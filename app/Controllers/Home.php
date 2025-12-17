@@ -260,10 +260,10 @@ class Home extends BaseController
 
                 $dompdf->render();
                 $dompdf->stream('kartu-alumni.pdf', ["Attachment" => false]);
-                $cetakModel->save([
-                    'cetak_tanggal'    => date('Y-m-d h:i:s'),
-                    'alumni_nim'       => $nim,
-                ]);
+                // $cetakModel->save([
+                //     'cetak_tanggal'    => date('Y-m-d h:i:s'),
+                //     'alumni_nim'       => $nim,
+                // ]);
                 exit;
 
 
