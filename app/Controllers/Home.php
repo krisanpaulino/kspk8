@@ -243,8 +243,8 @@ class Home extends BaseController
                 $data['belakang'] = base64_encode(file_get_contents(APPPATH . '/../assets-user/image/template-card-belakang.png'));
                 $html = view('user/cetak-kartu', $data);
                 // dd();
-                // var_dump($data['depan']);
-                // die();
+                var_dump($data['depan']);
+                die();
                 $options = new Options();
                 $options->set('isRemoteEnabled', true);
                 $options->set('isHtml5ParserEnabled', true);
@@ -260,10 +260,10 @@ class Home extends BaseController
 
                 $dompdf->render();
                 $dompdf->stream('kartu-alumni.pdf', ["Attachment" => false]);
-                // $cetakModel->save([
-                //     'cetak_tanggal'    => date('Y-m-d h:i:s'),
-                //     'alumni_nim'       => $nim,
-                // ]);
+                $cetakModel->save([
+                    'cetak_tanggal'    => date('Y-m-d h:i:s'),
+                    'alumni_nim'       => $nim,
+                ]);
                 exit;
 
 
@@ -304,12 +304,6 @@ class Home extends BaseController
     {
         $ceritaModel = new CeritaModel();
         $validationRules = [
-            'alumni_nim' => [
-                'rules'  => 'required|',
-                'errors' => [
-                    'required'   => 'NIM alumni tidak boleh kosong!',
-                ]
-            ],
             'cerita_nama' => [
                 'rules'  => 'required|',
                 'errors' => [
@@ -338,7 +332,7 @@ class Home extends BaseController
             'cerita_isi'        => $this->request->getPost('cerita_isi'),
             'cerita_status'     => 'pending',
             'cerita_tanggal'    => date('Y-m-d h:i:s'),
-            'alumni_nim'        => $this->request->getPost('alumni_nim'),
+            // 'alumni_nim'        => $this->request->getPost('alumni_nim'),
             'cerita_nama'       => $this->request->getPost('cerita_nama'),
         ]);
 

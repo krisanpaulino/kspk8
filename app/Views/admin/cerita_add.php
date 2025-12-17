@@ -27,10 +27,6 @@
             <form action="<?= base_url('admin/cerita-alumni/create') ?>" method="post">
                 <?= csrf_field() ?>
                 <div class="mb-3">
-                    <label for="alumni_nim" class="form-label"><span class="text-danger">*</span> NIM Alumni</label>
-                    <input type="text" class="form-control <?= (isset(session('errors')['alumni_nim'])) ? 'is-invalid' : '' ?>" id="alumni_nim" name="alumni_nim" value="<?= old('alumni_nim') ?>" required>
-                </div>
-                <div class="mb-3">
                     <label for="cerita_nama" class="form-label"><span class="text-danger">*</span> Nama Alumni</label>
                     <input type="text" class="form-control <?= (isset(session('errors')['cerita_nama'])) ? 'is-invalid' : '' ?>" id="cerita_nama" name="cerita_nama" value="<?= old('cerita_nama') ?>" required>
                 </div>

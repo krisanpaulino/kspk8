@@ -55,10 +55,6 @@
             <?= csrf_field() ?>
             <div class="row mb_30">
                 <div class="col-lg-6">
-                    <label for="alumni_nim"><span class="text-danger">*</span>NIM alumni</label>
-                    <input type="text" class="form-control <?= (isset(session('errors')['alumni_nim'])) ? 'is-invalid' : '' ?>" id="alumni_nim" name="alumni_nim" value="<?= old('alumni_nim') ?>">
-                </div>
-                <div class="col-lg-6">
                     <label for="cerita_nama"><span class="text-danger">*</span>Nama alumni</label>
                     <input type="text" class="form-control <?= (isset(session('errors')['cerita_nama'])) ? 'is-invalid' : '' ?>" id="cerita_nama" name="cerita_nama" value="<?= old('cerita_nama') ?>">
                 </div>

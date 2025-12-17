@@ -108,7 +108,6 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
 </head>
 
 <body>
-
     <!-- Halaman Depan -->
     <div class="kartu bg-depan">
 

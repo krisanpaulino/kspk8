@@ -39,7 +39,7 @@ class CeritaModel extends Model
         'cerita_judul' => 'required',
         'cerita_isi' => 'required',
         'cerita_status' => 'required',
-        'alumni_nim' => 'required',
+        // 'alumni_nim' => 'required',
         'cerita_nama' => 'required'
     ];
     protected $validationMessages   = [];
