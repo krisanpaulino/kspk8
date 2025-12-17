@@ -68,7 +68,7 @@ class CeritaModel extends Model
     }
     function findSingle($alumni_id)
     {
-        $this->join('alumni', 'alumni.alumni_nim = cerita.alumni_nim');
+        $this->join('alumni', 'alumni.alumni_nim = cerita.alumni_nim', 'left');
         return $this->find($alumni_id);
     }
 }
