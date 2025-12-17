@@ -20,16 +20,16 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
         }
 
         .kartu {
-            width: 500px;
-            height: 300px;
+            /* width: 500px;
+            height: 300px; */
             /* position: relative; */
         }
 
         .bg-depan {
             z-index: 2;
             position: relative;
-            /* width: 100%;
-            height: 100%; */
+            width: 100%;
+            height: 100%;
             background-image: url("data:image/jpeg;base64, <?= $depan ?>");
             background-size: cover;
             background-repeat: no-repeat;
@@ -41,8 +41,8 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
         .bg-belakang {
             z-index: 1;
             position: relative;
-            /* width: 100%;
-            height: 100%; */
+            width: 100%;
+            height: 100%;
             background-image: url("data:image/jpeg;base64, <?= $belakang ?>");
             background-size: cover;
             background-repeat: no-repeat;
