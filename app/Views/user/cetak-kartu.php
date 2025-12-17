@@ -22,7 +22,7 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
         .kartu {
             /* width: 500px;
             height: 300px; */
-            /* position: relative; */
+            position: relative;
         }
 
         .bg-depan {
