@@ -243,8 +243,7 @@ class Home extends BaseController
                 $data['belakang'] = base64_encode(file_get_contents(APPPATH . '/../assets-user/image/template-card-belakang.png'));
                 $html = view('user/cetak-kartu', $data);
                 // dd();
-                var_dump($data['depan']);
-                die();
+                dd($data['depan']);
                 $options = new Options();
                 $options->set('isRemoteEnabled', true);
                 $options->set('isHtml5ParserEnabled', true);
