@@ -29,8 +29,8 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            /* width: 100%;
+            height: 100%; */
             z-index: -1;
             background-image: url("data:image/jpeg;base64, <?= $depan ?>");
             background-size: cover;
@@ -44,8 +44,8 @@ $bgBelakang = realpath(FCPATH . 'assets-user/image/template-card-belakang.png');
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            /* width: 100%;
+            height: 100%; */
             z-index: -1;
             background-image: url("data:image/jpeg;base64, <?= $belakang ?>");
             background-size: cover;
