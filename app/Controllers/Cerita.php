@@ -84,10 +84,12 @@ class Cerita extends BaseController
         $cerita_id = $this->request->getPost('cerita_id');
         $cerita_judul = $this->request->getPost('cerita_judul');
         $cerita_isi = $this->request->getPost('cerita_isi');
+        $cerita_nama = $this->request->getPost('cerita_nama');
 
         $validationRules = [
             'cerita_judul' => 'required',
             'cerita_isi' => 'required',
+            'cerita_nama' => 'required',
         ];
 
         if (!$this->validate($validationRules)) {
@@ -98,6 +100,7 @@ class Cerita extends BaseController
         $model->update($cerita_id, [
             'cerita_judul' => $cerita_judul,
             'cerita_isi' => $cerita_isi,
+            'cerita_nama' => $cerita_nama,
         ]);
 
         return redirect()->to('admin/cerita-alumni/' . $cerita_id)

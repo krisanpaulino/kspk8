@@ -8,6 +8,10 @@
                 <?= csrf_field() ?>
                 <input type="hidden" name="cerita_id" value="<?= $cerita->cerita_id ?>">
                 <div class="mb-3">
+                    <label for="cerita_nama" class="form-label"><span class="text-danger">*</span> Nama Alumni</label>
+                    <input type="text" class="form-control <?= (isset(session('errors')['cerita_nama'])) ? 'is-invalid' : '' ?>" id="cerita_nama" name="cerita_nama" value="<?= old('cerita_nama') ?>" required>
+                </div>
+                <div class="mb-3">
                     <label for="cerita_judul" class="form-label">Judul Cerita</label>
                     <input type="text" class="form-control" id="cerita_judul" name="cerita_judul" value="<?= esc($cerita->cerita_judul) ?>" required>
                 </div>
