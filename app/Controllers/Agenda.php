@@ -19,37 +19,113 @@ class Agenda extends BaseController
     }
     public function insert()
     {
+        // Validate CSRF token
+        if (!$this->validate(['csrf_test_name' => 'required'])) {
+            return redirect()->back()->with('danger', 'Invalid security token!');
+        }
+
         $data = $this->request->getPost();
+
+        // Sanitize input data
+        if (isset($data['agenda_judul'])) {
+            $data['agenda_judul'] = strip_tags(trim($data['agenda_judul']));
+        }
+        if (isset($data['agenda_deskripsi'])) {
+            $data['agenda_deskripsi'] = strip_tags(trim($data['agenda_deskripsi']));
+        }
+        if (isset($data['agenda_waktu'])) {
+            $data['agenda_waktu'] = strip_tags(trim($data['agenda_waktu']));
+        }
+        if (isset($data['agenda_tanggal'])) {
+            $data['agenda_tanggal'] = strip_tags(trim($data['agenda_tanggal']));
+        }
+
         $model = new AgendaModel();
         if (!$model->insert($data)) {
             return redirect()->back()
+                ->with('errors', $model->errors())
                 ->with('danger', 'Data agenda gagal ditambahkan!')
                 ->withInput();
         }
         return redirect()->to('admin/agenda')
             ->with('success', 'Data agenda berhasil ditambahkan!');
     }
+
     public function update()
     {
+        // Validate CSRF token
+        if (!$this->validate(['csrf_test_name' => 'required'])) {
+            return redirect()->back()->with('danger', 'Invalid security token!');
+        }
+
         $data = $this->request->getPost();
-        $agenda_id = $this->request->getPost('agenda_id');
+        $agenda_id = (int) $this->request->getPost('agenda_id');
+
+        // Validate agenda_id
+        if (!$agenda_id || $agenda_id <= 0) {
+            return redirect()->back()->with('danger', 'Invalid agenda ID!');
+        }
+
+        // Sanitize input data
+        if (isset($data['agenda_judul'])) {
+            $data['agenda_judul'] = strip_tags(trim($data['agenda_judul']));
+        }
+        if (isset($data['agenda_deskripsi'])) {
+            $data['agenda_deskripsi'] = strip_tags(trim($data['agenda_deskripsi']));
+        }
+        if (isset($data['agenda_waktu'])) {
+            $data['agenda_waktu'] = strip_tags(trim($data['agenda_waktu']));
+        }
+        if (isset($data['agenda_tanggal'])) {
+            $data['agenda_tanggal'] = strip_tags(trim($data['agenda_tanggal']));
+        }
+
         $model = new AgendaModel();
-        $model->where('agenda_id', $agenda_id);
-        $model->set($data);
-        if (!$model->update($data)) {
+
+        // Check if record exists
+        $agenda = $model->find($agenda_id);
+        if (!$agenda) {
+            return redirect()->back()->with('danger', 'Agenda tidak ditemukan!');
+        }
+
+        if (!$model->update($agenda_id, $data)) {
             return redirect()->back()
+                ->with('errors', $model->errors())
                 ->with('danger', 'Data agenda gagal diubah!')
                 ->withInput();
         }
         return redirect()->to('admin/agenda')
             ->with('success', 'Data agenda berhasil diubah!');
     }
+
     function delete()
     {
-        $agenda_id = $this->request->getPost('agenda_id');
+        // Validate CSRF token
+        if (!$this->validate(['csrf_test_name' => 'required'])) {
+            return redirect()->back()->with('danger', 'Invalid security token!');
+        }
+
+        $agenda_id = (int) $this->request->getPost('agenda_id');
+
+        // Validate agenda_id
+        if (!$agenda_id || $agenda_id <= 0) {
+            return redirect()->back()->with('danger', 'Invalid agenda ID!');
+        }
+
         $model = new AgendaModel();
-        $model->where('agenda_id', $agenda_id);
-        $model->delete();
-        return redirect()->back()->with('success', 'Data kerjasama dihapus!');
+
+        // Check if record exists before deleting
+        $agenda = $model->find($agenda_id);
+        if (!$agenda) {
+            return redirect()->back()->with('danger', 'Agenda tidak ditemukan!');
+        }
+
+        $deleted = $model->delete($agenda_id);
+
+        if ($deleted) {
+            return redirect()->back()->with('success', 'Data agenda dihapus!');
+        } else {
+            return redirect()->back()->with('danger', 'Gagal menghapus data agenda!');
+        }
     }
 }

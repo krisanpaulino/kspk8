@@ -36,13 +36,37 @@ class CeritaModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'cerita_judul' => 'required',
-        'cerita_isi' => 'required',
-        'cerita_status' => 'required',
-        // 'alumni_nim' => 'required',
-        'cerita_nama' => 'required'
+        'cerita_judul' => 'required|min_length[5]|max_length[200]',
+        'cerita_isi' => 'required|min_length[10]',
+        'cerita_status' => 'required|in_list[pending,approved,rejected]',
+        'cerita_nama' => 'required|min_length[2]|max_length[100]|alpha_space',
+        'alumni_nim' => 'permit_empty|max_length[20]|alpha_numeric'
     ];
-    protected $validationMessages   = [];
+    protected $validationMessages   = [
+        'cerita_judul' => [
+            'required' => 'Judul cerita harus diisi',
+            'min_length' => 'Judul cerita minimal 5 karakter',
+            'max_length' => 'Judul cerita maksimal 200 karakter'
+        ],
+        'cerita_isi' => [
+            'required' => 'Isi cerita harus diisi',
+            'min_length' => 'Isi cerita minimal 10 karakter'
+        ],
+        'cerita_nama' => [
+            'required' => 'Nama alumni harus diisi',
+            'min_length' => 'Nama alumni minimal 2 karakter',
+            'max_length' => 'Nama alumni maksimal 100 karakter',
+            'alpha_space' => 'Nama alumni hanya boleh mengandung huruf dan spasi'
+        ],
+        'cerita_status' => [
+            'required' => 'Status cerita harus diisi',
+            'in_list' => 'Status cerita tidak valid'
+        ],
+        'alumni_nim' => [
+            'max_length' => 'NIM maksimal 20 karakter',
+            'alpha_numeric' => 'NIM hanya boleh mengandung huruf dan angka'
+        ]
+    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 

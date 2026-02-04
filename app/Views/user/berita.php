@@ -16,11 +16,11 @@
                             <img class="img-fluid" src="<?= base_url('/') ?>assets/images/<?= $row->berita_thumbnail ?>" class="rounded" alt="Gambar berita" style="height:250px; object-fit:cover">
                         </div>
                         <div class="details">
-                            <a href="<?= base_url('/detailberita/' . $row->berita_id) ?>">
-                                <h4 class="sec_h4"><?= $row->berita_judul ?></h4>
+                            <a href="<?= base_url('/detailberita/' . esc($row->berita_id)) ?>">
+                                <h4 class="sec_h4"><?= esc($row->berita_judul) ?></h4>
                             </a>
-                            <?= substr(strip_tags(preg_replace("/<img[^>]+\>/i", "", $row->berita_isi)), 0, 150) ?>
-                            <h6 class="date title_color"><?= date('d-M-Y, h:i:sa', strtotime($row->berita_tanggal)) ?></h6>
+                            <?= substr(strip_tags(preg_replace("/<img[^>]+\>/i", "", sanitize_html_content($row->berita_isi))), 0, 150) ?>
+                            <h6 class="date title_color"><?= esc(date('d-M-Y, h:i:sa', strtotime($row->berita_tanggal))) ?></h6>
                         </div>
                     </div>
                 </div>

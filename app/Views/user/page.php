@@ -7,7 +7,7 @@
         </div>
         <div class="single-post row">
             <div class="col">
-                <?= $page->page_content ?>
+                <?= sanitize_html_content($page->page_content) ?>
             </div>
         </div>
 

@@ -49,11 +49,11 @@
                         <?php foreach ($berita as $row) : ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td><?= $row->berita_judul ?></td>
-                                <td><?= $row->berita_tanggal ?></td>
+                                <td><?= esc($row->berita_judul) ?></td>
+                                <td><?= esc($row->berita_tanggal) ?></td>
                                 <td>
-                                    <a href="<?= base_url('admin/berita/edit/' . $row->berita_id) ?>" class="badge bg-primary text-light">Edit</a>
-                                    <a href="javascript:;" class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#hapus" data-id="<?= $row->berita_id ?>">Hapus </a>
+                                    <a href="<?= base_url('admin/berita/edit/' . esc($row->berita_id)) ?>" class="badge bg-primary text-light">Edit</a>
+                                    <a href="javascript:;" class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#hapus" data-id="<?= esc($row->berita_id) ?>">Hapus </a>
                                 </td>
                             </tr>
                         <?php endforeach ?>

@@ -56,16 +56,32 @@
             <div class="row mb_30">
                 <div class="col-lg-6">
                     <label for="cerita_nama"><span class="text-danger">*</span>Nama alumni</label>
-                    <input type="text" class="form-control <?= (isset(session('errors')['cerita_nama'])) ? 'is-invalid' : '' ?>" id="cerita_nama" name="cerita_nama" value="<?= old('cerita_nama') ?>">
+                    <input type="text" class="form-control <?= (isset(session('errors')['cerita_nama'])) ? 'is-invalid' : '' ?>" id="cerita_nama" name="cerita_nama" value="<?= esc(old('cerita_nama')) ?>" maxlength="100" pattern="[A-Za-z\s]+" title="Hanya huruf dan spasi yang diperbolehkan">
+                    <div class="invalid-feedback">
+                        <?php if (isset(session('errors')['cerita_nama'])) : ?>
+                            <?= esc(session('errors')['cerita_nama']) ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <div class="col-lg-12">
                     <label for="cerita_judul"><span class="text-danger">*</span>Judul</label>
-                    <input type="text" class="form-control <?= (isset(session('errors')['cerita_judul'])) ? 'is-invalid' : '' ?>" id="cerita_judul" name="cerita_judul" value="<?= old('cerita_judul') ?>">
+                    <input type="text" class="form-control <?= (isset(session('errors')['cerita_judul'])) ? 'is-invalid' : '' ?>" id="cerita_judul" name="cerita_judul" value="<?= esc(old('cerita_judul')) ?>" maxlength="200">
+                    <div class="invalid-feedback">
+                        <?php if (isset(session('errors')['cerita_judul'])) : ?>
+                            <?= esc(session('errors')['cerita_judul']) ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="form-group mb-4">
-                        <label for="cerita_isi"><span class="txt-danger">*</span>Isi cerita</label>
-                        <textarea rows="10" class="form-control <?= (isset(session('errors')['cerita_isi'])) ? 'is-invalid' : '' ?>" id="editor2" name="cerita_isi" required><?= old('cerita_isi') ?></textarea>
+                        <label for="cerita_isi"><span class="txt-danger">*</span>Isi cerita <small>(Hanya formatting sederhana yang diperbolehkan)</small></label>
+                        <textarea rows="10" class="form-control <?= (isset(session('errors')['cerita_isi'])) ? 'is-invalid' : '' ?>" id="cerita_isi" name="cerita_isi" required><?= esc(old('cerita_isi')) ?></textarea>
+                        <small class="form-text text-muted">Catatan: Konten akan ditinjau oleh admin sebelum dipublikasi</small>
+                        <div class="invalid-feedback">
+                            <?php if (isset(session('errors')['cerita_isi'])) : ?>
+                                <?= esc(session('errors')['cerita_isi']) ?>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>

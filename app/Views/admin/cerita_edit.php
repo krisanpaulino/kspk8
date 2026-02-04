@@ -17,7 +17,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="cerita_isi" class="form-label">Isi Cerita</label>
-                    <textarea class="form-control" id="editor2" name="cerita_isi" rows="10" required><?= esc($cerita->cerita_isi) ?></textarea>
+                    <textarea class="form-control" id="editor2" name="cerita_isi" rows="10" required><?= $cerita->cerita_isi ?></textarea>
                 </div>
                 <button type="submit" class="btn btn-success"><i class="bx bx-save"></i> Simpan</button>
                 <a href="<?= base_url('admin/cerita-alumni') ?>" class="btn btn-secondary">Batal</a>

@@ -34,12 +34,31 @@ class AgendaModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'agenda_judul' => 'required',
-        'agenda_tanggal' => 'required',
-        'agenda_waktu' => 'required',
-        'agenda_deskripsi' => 'required'
+        'agenda_judul' => 'required|min_length[3]|max_length[255]|alpha_numeric_space',
+        'agenda_tanggal' => 'required|valid_date',
+        'agenda_waktu' => 'required|max_length[20]',
+        'agenda_deskripsi' => 'required|min_length[10]'
     ];
-    protected $validationMessages   = [];
+    protected $validationMessages   = [
+        'agenda_judul' => [
+            'required' => 'Judul agenda harus diisi',
+            'min_length' => 'Judul agenda minimal 3 karakter',
+            'max_length' => 'Judul agenda maksimal 255 karakter',
+            'alpha_numeric_space' => 'Judul agenda hanya boleh mengandung huruf, angka, dan spasi'
+        ],
+        'agenda_deskripsi' => [
+            'required' => 'Deskripsi agenda harus diisi',
+            'min_length' => 'Deskripsi agenda minimal 10 karakter'
+        ],
+        'agenda_tanggal' => [
+            'required' => 'Tanggal agenda harus diisi',
+            'valid_date' => 'Format tanggal tidak valid'
+        ],
+        'agenda_waktu' => [
+            'required' => 'Waktu agenda harus diisi',
+            'max_length' => 'Waktu agenda maksimal 20 karakter'
+        ]
+    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 

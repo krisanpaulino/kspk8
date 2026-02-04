@@ -35,13 +35,13 @@
             <hr />
             <form action="<?= base_url('admin/berita/' . $url) ?>" method="post">
                 <?= csrf_field() ?>
-                <input type="hidden" name="berita_id" value="<?= $berita->berita_id ?>">
+                <input type="hidden" name="berita_id" value="<?= esc($berita->berita_id) ?>">
                 <div class="form-group mb-4">
                     <label for="berita_judul"><span class="txt-danger">*</span>Judul</label>
-                    <input type="text" class="form-control <?= (isset(session('errors')['berita_judul'])) ? 'is-invalid' : '' ?>" id="berita_judul" name="berita_judul" value="<?= old('berita_judul', $berita->berita_judul) ?>">
+                    <input type="text" class="form-control <?= (isset(session('errors')['berita_judul'])) ? 'is-invalid' : '' ?>" id="berita_judul" name="berita_judul" value="<?= esc(old('berita_judul', $berita->berita_judul)) ?>">
                     <div class="invalid-feedback">
                         <?php if (isset(session('errors')['berita_judul'])) : ?>
-                            <?= session('errors')['berita_judul'] ?>
+                            <?= esc(session('errors')['berita_judul']) ?>
                         <?php endif; ?>
                     </div>
                 </div>

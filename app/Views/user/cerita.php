@@ -48,13 +48,13 @@
                         <div class="single-recent-blog-post mx-4">
                             <div class="details">
                                 <div class="tags">
-                                    <p class="tag_btn"><?= $row->cerita_nama ?></p>
+                                    <p class="tag_btn"><?= esc($row->cerita_nama) ?></p>
                                 </div>
-                                <a href="<?= base_url('/detailcerita/' . $row->cerita_id) ?>">
-                                    <h4 class="sec_h4"><?= $row->cerita_judul ?></h4>
+                                <a href="<?= base_url('/detailcerita/' . esc($row->cerita_id)) ?>">
+                                    <h4 class="sec_h4"><?= esc($row->cerita_judul) ?></h4>
                                 </a>
-                                <?= substr(strip_tags(preg_replace("/<img[^>]+\>/i", "", $row->cerita_isi)), 0, 150) ?>
-                                <h6 class="date title_color mt-3"><?= date('d-M-Y, h:i:sa', strtotime($row->cerita_tanggal)) ?></h6>
+                                <?= substr(strip_tags(preg_replace("/<img[^>]+\>/i", "", sanitize_html_content($row->cerita_isi))), 0, 150) ?>
+                                <h6 class="date title_color mt-3"><?= esc(date('d-M-Y, h:i:sa', strtotime($row->cerita_tanggal))) ?></h6>
                             </div>
                         </div>
                     </div>

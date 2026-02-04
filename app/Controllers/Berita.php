@@ -9,6 +9,26 @@ use DOMDocument;
 
 class Berita extends BaseController
 {
+    /**
+     * Sanitize HTML content to prevent XSS attacks
+     * Allow only safe HTML tags and attributes
+     */
+    private function sanitizeHtmlContent($html)
+    {
+        // Define allowed tags and attributes
+        $allowedTags = '<p><br><strong><b><em><i><u><h1><h2><h3><h4><h5><h6><ul><ol><li><a><img><table><tr><td><th><thead><tbody>';
+
+        // Strip dangerous tags first
+        $html = strip_tags($html, $allowedTags);
+
+        // Remove potentially dangerous attributes and javascript
+        $html = preg_replace('/javascript:/i', '', $html);
+        $html = preg_replace('/on\w+\s*=/i', '', $html); // Remove onload, onclick, etc.
+        $html = preg_replace('/style\s*=/i', '', $html); // Remove style attributes
+
+        return $html;
+    }
+
     public function index()
     {
         $model = new BeritaModel();
@@ -30,23 +50,46 @@ class Berita extends BaseController
     }
     function insert()
     {
+        // Validate CSRF token
+        if (!$this->validate(['csrf_test_name' => 'required'])) {
+            return redirect()->back()->with('danger', 'Invalid security token!');
+        }
 
-        // Proses Data Sekolah
+        // Get and validate POST data
         $databerita = $this->request->getPost();
-        // dd($this->request->getFile('file'));
 
-        //Insert data to Sekolah
+        // Additional input sanitization
+        if (isset($databerita['berita_judul'])) {
+            $databerita['berita_judul'] = strip_tags(trim($databerita['berita_judul']));
+        }
+
+        // Sanitize HTML content while preserving safe tags
+        if (isset($databerita['berita_isi'])) {
+            $databerita['berita_isi'] = $this->sanitizeHtmlContent($databerita['berita_isi']);
+        }
+
+        //Insert data to Berita
         //find images
         $doc = new DOMDocument();
-        @$doc->loadHTML($databerita['berita_isi']);
+        $doc->encoding = 'UTF-8';
+
+        // Use libxml to handle HTML5 properly and suppress warnings
+        libxml_use_internal_errors(true);
+        @$doc->loadHTML('<?xml encoding="UTF-8">' . $databerita['berita_isi'], LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
 
         $tags = $doc->getElementsByTagName('img');
 
         if ($tags->count() > 0) {
             $url = $tags[0]->getAttribute('src');
-            $pathinfo = pathinfo($url);
-            $image = $pathinfo['filename'] . '.' . $pathinfo['extension'];
-            $databerita['berita_thumbnail'] = $image;
+            // Validate and sanitize image URL
+            if (filter_var($url, FILTER_VALIDATE_URL) || filter_var($url, FILTER_SANITIZE_URL)) {
+                $pathinfo = pathinfo($url);
+                if (isset($pathinfo['filename']) && isset($pathinfo['extension'])) {
+                    $image = preg_replace('/[^a-zA-Z0-9_\-.]/', '', $pathinfo['filename'] . '.' . $pathinfo['extension']);
+                    $databerita['berita_thumbnail'] = $image;
+                }
+            }
         }
         // dd($image);
 
@@ -88,24 +131,52 @@ class Berita extends BaseController
     }
     function update()
     {
+        // Validate CSRF token
+        if (!$this->validate(['csrf_test_name' => 'required'])) {
+            return redirect()->back()->with('danger', 'Invalid security token!');
+        }
 
-        // Proses Data Sekolah
-        $berita_id = $this->request->getPost('berita_id');
+        // Get and validate POST data
+        $berita_id = (int) $this->request->getPost('berita_id');
         $databerita = $this->request->getPost();
-        // dd($this->request->getFile('file'));
 
-        //Insert data to Sekolah
+        // Validate berita_id
+        if (!$berita_id || $berita_id <= 0) {
+            return redirect()->back()->with('danger', 'Invalid berita ID!');
+        }
+
+        // Additional input sanitization
+        if (isset($databerita['berita_judul'])) {
+            $databerita['berita_judul'] = strip_tags(trim($databerita['berita_judul']));
+        }
+
+        // Sanitize HTML content while preserving safe tags
+        if (isset($databerita['berita_isi'])) {
+            $databerita['berita_isi'] = $this->sanitizeHtmlContent($databerita['berita_isi']);
+        }
+
+        //Update data to Berita
         //find images
         $doc = new DOMDocument();
-        @$doc->loadHTML($databerita['berita_isi']);
+        $doc->encoding = 'UTF-8';
+
+        // Use libxml to handle HTML5 properly and suppress warnings
+        libxml_use_internal_errors(true);
+        @$doc->loadHTML('<?xml encoding="UTF-8">' . $databerita['berita_isi'], LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
 
         $tags = $doc->getElementsByTagName('img');
 
         if ($tags->count() > 0) {
             $url = $tags[0]->getAttribute('src');
-            $pathinfo = pathinfo($url);
-            $image = $pathinfo['filename'] . '.' . $pathinfo['extension'];
-            $databerita['berita_thumbnail'] = $image;
+            // Validate and sanitize image URL
+            if (filter_var($url, FILTER_VALIDATE_URL) || filter_var($url, FILTER_SANITIZE_URL)) {
+                $pathinfo = pathinfo($url);
+                if (isset($pathinfo['filename']) && isset($pathinfo['extension'])) {
+                    $image = preg_replace('/[^a-zA-Z0-9_\-.]/', '', $pathinfo['filename'] . '.' . $pathinfo['extension']);
+                    $databerita['berita_thumbnail'] = $image;
+                }
+            }
         }
         // dd($image);
         // $databerita['berita_tanggal'] = date('Y-m-d');
@@ -134,12 +205,34 @@ class Berita extends BaseController
     }
     function delete()
     {
-        $berita_id = $this->request->getPost('berita_id');
-        // dd($berita_id);
+        // Validate CSRF token
+        if (!$this->validate(['csrf_test_name' => 'required'])) {
+            return redirect()->back()->with('danger', 'Invalid security token!');
+        }
+
+        $berita_id = (int) $this->request->getPost('berita_id');
+
+        // Validate berita_id
+        if (!$berita_id || $berita_id <= 0) {
+            return redirect()->back()->with('danger', 'Invalid berita ID!');
+        }
+
         $model = new BeritaModel();
-        $model->where('berita_id', $berita_id);
-        $model->delete();
-        return redirect()->back()
-            ->with('message', "Toastify({'text':'Berita dihapus!'}).showToast()");
+
+        // Check if record exists before deleting
+        $berita = $model->find($berita_id);
+        if (!$berita) {
+            return redirect()->back()->with('danger', 'Berita tidak ditemukan!');
+        }
+
+        // Use the model's delete method with ID parameter for better security
+        $deleted = $model->delete($berita_id);
+
+        if ($deleted) {
+            return redirect()->back()
+                ->with('message', "Toastify({'text':'Berita dihapus!'}).showToast()");
+        } else {
+            return redirect()->back()->with('danger', 'Gagal menghapus berita!');
+        }
     }
 }

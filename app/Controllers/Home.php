@@ -149,21 +149,45 @@ class Home extends BaseController
 
     public function cetakkartu()
     {
+        // Validate CSRF token first
+        if (!$this->validate(['csrf_test_name' => 'required'])) {
+            return redirect()->back()->with('error', 'Invalid security token!');
+        }
+
+        // Rate limiting for card printing
+        $clientIP = $this->request->getIPAddress();
+        $cacheKey = 'print_attempts_' . md5($clientIP);
+        $cache = \Config\Services::cache();
+
+        $attempts = $cache->get($cacheKey) ?? 0;
+        if ($attempts >= 5) { // Max 5 attempts per hour
+            return redirect()->back()->with('error', 'Terlalu banyak percobaan cetak. Coba lagi dalam 1 jam.');
+        }
+
         $alumniModel = new AlumniModel();
         $cetakModel = new CetakModel();
-        $nim = $this->request->getPost('alumni_nim');
+        $nim = trim($this->request->getPost('alumni_nim'));
 
+        // Enhanced validation
         $validationRules = [
             'alumni_nim' => [
-                'rules'  => 'required|',
+                'rules'  => 'required|min_length[5]|max_length[20]|alpha_numeric',
                 'errors' => [
-                    'required'   => 'NIM alumni tidak boleh kosong!',
+                    'required' => 'NIM alumni tidak boleh kosong!',
+                    'min_length' => 'NIM minimal 5 karakter',
+                    'max_length' => 'NIM maksimal 20 karakter',
+                    'alpha_numeric' => 'NIM hanya boleh mengandung huruf dan angka'
                 ]
             ],
         ];
+
         if (!$this->validate($validationRules)) {
+            $cache->save($cacheKey, $attempts + 1, 3600);
             return redirect()->back()->withInput()->with('validation', $this->validator);
         }
+
+        // Sanitize input - remove any potential malicious characters
+        $nim = preg_replace('/[^a-zA-Z0-9]/', '', $nim);
 
         $cekalumni = $alumniModel->where('alumni_nim', $nim)->countAllResults();
 
@@ -228,8 +252,18 @@ class Home extends BaseController
 
             if ($cekcetak > 0) {
                 $datacetak = $cetakModel->where('alumni_nim', $nim)->first();
+                log_security_event('Duplicate card print attempt', [
+                    'ip' => $clientIP,
+                    'nim' => $nim,
+                    'previous_print' => $datacetak->cetak_tanggal
+                ]);
                 return redirect()->back()->withInput()->with('error', 'Anda sudah pernah mencetak kartu alumni pada : ' . date('d-M-Y h:i:s', strtotime($datacetak->cetak_tanggal)) . '! Hubungi admin untuk proses lebih lanjut!');
             } else {
+                // Log successful card generation
+                log_security_event('Alumni card generated', [
+                    'ip' => $clientIP,
+                    'nim' => $nim
+                ]);
 
 
 
@@ -271,6 +305,11 @@ class Home extends BaseController
                 return redirect()->to('/kartualumni')->with('success', 'Data berhasil diproses! Kartu alumni anda akan didownload!');
             }
         } else {
+            $cache->save($cacheKey, $attempts + 1, 3600);
+            log_security_event('Invalid NIM attempt', [
+                'ip' => $clientIP,
+                'nim' => $nim
+            ]);
             return redirect()->back()->withInput()->with('error', 'Data anda tidak ada! Hubungi admin untuk proses lebih lanjut!');
         }
     }
@@ -302,41 +341,114 @@ class Home extends BaseController
 
     function create_cerita()
     {
+        // Validate CSRF token first
+        if (!$this->validate(['csrf_test_name' => 'required'])) {
+            return redirect()->back()->with('danger', 'Invalid security token!');
+        }
+
+        // Rate limiting for public submissions
+        $clientIP = $this->request->getIPAddress();
+        $cacheKey = 'cerita_submissions_' . md5($clientIP);
+        $cache = \Config\Services::cache();
+
+        $submissions = $cache->get($cacheKey) ?? 0;
+        if ($submissions >= 3) { // Max 3 submissions per hour
+            return redirect()->back()->with('danger', 'Terlalu banyak submission. Coba lagi dalam 1 jam.');
+        }
+
         $ceritaModel = new CeritaModel();
         $validationRules = [
             'cerita_nama' => [
-                'rules'  => 'required|',
+                'rules'  => 'required|min_length[2]|max_length[100]|alpha_space',
                 'errors' => [
-                    'required'    => 'Nama alumni wajib diisi!',
+                    'required' => 'Nama alumni wajib diisi!',
+                    'min_length' => 'Nama minimal 2 karakter',
+                    'max_length' => 'Nama maksimal 100 karakter',
+                    'alpha_space' => 'Nama hanya boleh mengandung huruf dan spasi'
                 ]
             ],
             'cerita_judul' => [
-                'rules'  => 'required|',
+                'rules'  => 'required|min_length[5]|max_length[200]',
                 'errors' => [
-                    'required' => 'Judul harus diisi!.',
+                    'required' => 'Judul harus diisi!',
+                    'min_length' => 'Judul minimal 5 karakter',
+                    'max_length' => 'Judul maksimal 200 karakter'
                 ]
             ],
             'cerita_isi' => [
-                'rules'  => 'required|',
+                'rules'  => 'required|min_length[10]',
                 'errors' => [
-                    'required' => 'Isi cerita wajib diisi!.',
+                    'required' => 'Isi cerita wajib diisi!',
+                    'min_length' => 'Isi cerita minimal 10 karakter'
                 ]
             ],
         ];
+
         if (!$this->validate($validationRules)) {
+            $cache->save($cacheKey, $submissions + 1, 3600); // Track failed attempts too
             return redirect()->back()->withInput()->with('validation', $this->validator);
         }
 
+        // Get and sanitize input data
+        $ceritaNama = strip_tags(trim($this->request->getPost('cerita_nama')));
+        $ceritaJudul = strip_tags(trim($this->request->getPost('cerita_judul')));
+        $ceritaIsi = $this->sanitizeHtmlContent($this->request->getPost('cerita_isi'));
+
+        // Additional validation - check for suspicious patterns
+        $suspiciousPatterns = ['<script', 'javascript:', 'onclick', 'onerror', 'onload'];
+        $combinedContent = $ceritaNama . ' ' . $ceritaJudul . ' ' . $ceritaIsi;
+
+        foreach ($suspiciousPatterns as $pattern) {
+            if (stripos($combinedContent, $pattern) !== false) {
+                log_security_event('Suspicious content in cerita submission', [
+                    'ip' => $clientIP,
+                    'pattern' => $pattern,
+                    'content_preview' => substr($combinedContent, 0, 100)
+                ]);
+                return redirect()->back()->with('danger', 'Konten tidak diizinkan terdeteksi!');
+            }
+        }
+
         $ceritaModel->save([
-            'cerita_judul'      => $this->request->getPost('cerita_judul'),
-            'cerita_isi'        => $this->request->getPost('cerita_isi'),
-            'cerita_status'     => 'pending',
-            'cerita_tanggal'    => date('Y-m-d h:i:s'),
-            // 'alumni_nim'        => $this->request->getPost('alumni_nim'),
-            'cerita_nama'       => $this->request->getPost('cerita_nama'),
+            'cerita_judul'      => $ceritaJudul,
+            'cerita_isi'        => $ceritaIsi,
+            'cerita_status'     => 'pending', // Always pending for public submissions
+            'cerita_tanggal'    => date('Y-m-d H:i:s'),
+            'cerita_nama'       => $ceritaNama,
+        ]);
+
+        // Track successful submission
+        $cache->save($cacheKey, $submissions + 1, 3600); // 1 hour cache
+
+        // Log the submission
+        log_security_event('Public cerita submission', [
+            'ip' => $clientIP,
+            'nama' => $ceritaNama,
+            'judul' => $ceritaJudul
         ]);
 
         return redirect()->to('/add_cerita')->with('success', 'Data berhasil ditambahkan! Cerita anda membutuhkan waktu dan persetujuan admin untuk dapat ditampilkan ke publik. Mohon menunggu...');
+    }
+
+    /**
+     * Sanitize HTML content for public submissions - more restrictive than admin
+     */
+    private function sanitizeHtmlContent($html)
+    {
+        // For public submissions, only allow very basic formatting
+        $allowedTags = '<p><br><strong><b><em><i><u>';
+
+        // Strip all tags except allowed ones
+        $html = strip_tags($html, $allowedTags);
+
+        // Remove any remaining dangerous patterns
+        $html = preg_replace('/javascript:/i', '', $html);
+        $html = preg_replace('/on\w+\s*=/i', '', $html);
+        $html = preg_replace('/style\s*=/i', '', $html);
+        $html = preg_replace('/data-\w+\s*=/i', '', $html);
+        $html = preg_replace('/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/mi', '', $html);
+
+        return $html;
     }
 
     public function expo()

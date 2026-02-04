@@ -35,7 +35,7 @@ class ContentSecurityPolicy extends BaseConfig
      * HTTP to HTTPS. This directive is for websites with
      * large numbers of old URLs that need to be rewritten.
      */
-    public bool $upgradeInsecureRequests = false;
+    public bool $upgradeInsecureRequests = true;
 
     // -------------------------------------------------------------------------
     // Sources allowed
@@ -47,28 +47,58 @@ class ContentSecurityPolicy extends BaseConfig
      *
      * @var list<string>|string|null
      */
-    public $defaultSrc;
+    public $defaultSrc = 'self';
 
     /**
      * Lists allowed scripts' URLs.
      *
      * @var list<string>|string
      */
-    public $scriptSrc = 'self';
+    public $scriptSrc = [
+        'self',
+        'https://code.jquery.com',
+        'https://cdn.jsdelivr.net',
+        'https://cdnjs.cloudflare.com',
+        'https://stackpath.bootstrapcdn.com',
+        'https://unpkg.com',
+        'https://ajax.googleapis.com',
+        'https://cdn.datatables.net',
+        'https://maxcdn.bootstrapcdn.com',
+        'unsafe-inline', // Required for some legacy inline scripts - use sparingly
+    ];
 
     /**
      * Lists allowed stylesheets' URLs.
      *
      * @var list<string>|string
      */
-    public $styleSrc = 'self';
+    public $styleSrc = [
+        'self',
+        'https://fonts.googleapis.com',
+        'https://cdn.jsdelivr.net',
+        'https://cdnjs.cloudflare.com',
+        'https://stackpath.bootstrapcdn.com',
+        'https://unpkg.com',
+        'https://maxcdn.bootstrapcdn.com',
+        'https://cdn.datatables.net',
+        'unsafe-inline', // Required for inline styles - be cautious
+    ];
 
     /**
      * Defines the origins from which images can be loaded.
      *
      * @var list<string>|string
      */
-    public $imageSrc = 'self';
+    public $imageSrc = [
+        'self',
+        'data:', // Allow base64 encoded images
+        'https:', // Allow all HTTPS images
+        'https://cdn.jsdelivr.net',
+        'https://cdnjs.cloudflare.com',
+        'https://stackpath.bootstrapcdn.com',
+        'https://unpkg.com',
+        'https://via.placeholder.com', // Placeholder images
+    ];
 
     /**
      * Restricts the URLs that can appear in a page's `<base>` element.
@@ -77,14 +107,19 @@ class ContentSecurityPolicy extends BaseConfig
      *
      * @var list<string>|string|null
      */
-    public $baseURI;
+    public $baseURI = 'self';
 
     /**
      * Lists the URLs for workers and embedded frame contents
      *
      * @var list<string>|string
      */
-    public $childSrc = 'self';
+    public $childSrc = [
+        'self',
+        'https://www.youtube.com', // YouTube embeds
+        'https://player.vimeo.com', // Vimeo embeds
+        'https://www.google.com', // Google Maps, etc.
+    ];
 
     /**
      * Limits the origins that you can connect to (via XHR,
@@ -92,14 +127,30 @@ class ContentSecurityPolicy extends BaseConfig
      *
      * @var list<string>|string
      */
-    public $connectSrc = 'self';
+    public $connectSrc = [
+        'self',
+        'https:', // Allow HTTPS connections
+        'wss:', // Allow secure WebSocket connections
+        'https://api.github.com', // GitHub API
+        'https://cdn.jsdelivr.net',
+        'https://cdnjs.cloudflare.com',
+    ];
 
     /**
      * Specifies the origins that can serve web fonts.
      *
      * @var list<string>|string
      */
-    public $fontSrc;
+    public $fontSrc = [
+        'self',
+        'https://fonts.gstatic.com',
+        'https://fonts.googleapis.com',
+        'https://cdn.jsdelivr.net',
+        'https://cdnjs.cloudflare.com',
+        'https://stackpath.bootstrapcdn.com',
+        'https://unpkg.com',
+        'data:', // Allow base64 encoded fonts
+    ];
 
     /**
      * Lists valid endpoints for submission from `<form>` tags.
@@ -116,7 +167,7 @@ class ContentSecurityPolicy extends BaseConfig
      *
      * @var list<string>|string|null
      */
-    public $frameAncestors;
+    public $frameAncestors = 'self';
 
     /**
      * The frame-src directive restricts the URLs which may
@@ -124,14 +175,27 @@ class ContentSecurityPolicy extends BaseConfig
      *
      * @var list<string>|string|null
      */
-    public $frameSrc;
+    public $frameSrc = [
+        'self',
+        'https://www.youtube.com',
+        'https://player.vimeo.com',
+        'https://www.google.com',
+        'https://maps.google.com',
+    ];
 
     /**
      * Restricts the origins allowed to deliver video and audio.
      *
      * @var list<string>|string|null
      */
-    public $mediaSrc;
+    public $mediaSrc = [
+        'self',
+        'https:', // Allow HTTPS media
+        'data:', // Allow data URLs for media
+        'blob:', // Allow blob URLs for media
+        'https://www.youtube.com',
+        'https://player.vimeo.com',
+    ];
 
     /**
      * Allows control over Flash and other plugins.

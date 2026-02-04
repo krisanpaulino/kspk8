@@ -60,7 +60,13 @@
                     </div>
                     <br>
                     <label for="alumni_nim"><span class="text-danger">*</span>Masukan NIM alumni</label>
-                    <input type="text" class="form-control <?= (isset(session('errors')['alumni_nim'])) ? 'is-invalid' : '' ?>" id="alumni_nim" name="alumni_nim" value="<?= old('alumni_nim') ?>">
+                    <input type="text" class="form-control <?= (isset(session('errors')['alumni_nim'])) ? 'is-invalid' : '' ?>" id="alumni_nim" name="alumni_nim" value="<?= esc(old('alumni_nim')) ?>" maxlength="20" pattern="[A-Za-z0-9]+" title="Hanya huruf dan angka yang diperbolehkan" required>
+                    <small class="form-text text-muted">NIM hanya boleh mengandung huruf dan angka</small>
+                    <div class="invalid-feedback">
+                        <?php if (isset(session('errors')['alumni_nim'])) : ?>
+                            <?= esc(session('errors')['alumni_nim']) ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
 
