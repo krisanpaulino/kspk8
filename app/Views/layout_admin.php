@@ -196,6 +196,7 @@
                             </li>
                             <li>
                                 <form action="<?= base_url('auth/logout') ?>" method="post">
+                                    <?= csrf_field() ?>
                                     <button class="dropdown-item" type="submit"><i class='bx bx-log-out-circle'></i><span>Logout</span></button>
                                 </form>
                             </li>
@@ -238,9 +239,9 @@
     <script src="<?= base_url() ?>/assets/js/app.js"></script>
     <?= $this->renderSection('scripts'); ?>
     <script>
-        $(document).ready( function () {
-    $('#example').DataTable();
-} );
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
     </script>
 
 </body>

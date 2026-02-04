@@ -59,6 +59,7 @@
                                     <?php endif ?>
                                     <div class="form-body">
                                         <form class="row g-3" method="post" action="<?= base_url('login') ?>">
+                                            <?= csrf_field() ?>
                                             <div class="col-12">
                                                 <label for="inputEmailAddress" class="form-label">Email</label>
                                                 <input type="email" name="user_email" class="form-control" id="inputEmailAddress" placeholder="jhon@example.com">
