@@ -124,7 +124,7 @@ class Page extends BaseController
             if (isset($datapage[$field])) {
                 if ($field === 'page_isi') {
                     // Allow HTML content but sanitize it
-                    $sanitizedData[$field] = $this->sanitizeHtmlContent($datapage[$field]);
+                    $sanitizedData[$field] = sanitize_html_content($datapage[$field]);
                 } else {
                     // Strip tags for other fields
                     $sanitizedData[$field] = strip_tags(trim($datapage[$field]));

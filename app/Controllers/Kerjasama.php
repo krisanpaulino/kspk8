@@ -122,7 +122,7 @@ class Kerjasama extends BaseController
         }
 
         if (isset($data['kerjasama_isi'])) {
-            $data['kerjasama_isi'] = $this->sanitizeHtmlContent($data['kerjasama_isi']);
+            $data['kerjasama_isi'] = sanitize_html_content($data['kerjasama_isi']);
         }
 
         $doc = new DOMDocument();
@@ -183,7 +183,7 @@ class Kerjasama extends BaseController
         }
 
         if (isset($data['kerjasama_isi'])) {
-            $data['kerjasama_isi'] = $this->sanitizeHtmlContent($data['kerjasama_isi']);
+            $data['kerjasama_isi'] = sanitize_html_content($data['kerjasama_isi']);
         }
 
         $doc = new DOMDocument();

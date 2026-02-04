@@ -155,7 +155,7 @@ class Cerita extends BaseController
 
         $cerita_id = (int) $this->request->getPost('cerita_id');
         $cerita_judul = strip_tags(trim($this->request->getPost('cerita_judul')));
-        $cerita_isi = $this->sanitizeHtmlContent($this->request->getPost('cerita_isi'));
+        $cerita_isi = sanitize_html_content($this->request->getPost('cerita_isi'));
         $cerita_nama = strip_tags(trim($this->request->getPost('cerita_nama')));
 
         // Validate cerita_id
@@ -252,7 +252,7 @@ class Cerita extends BaseController
             $datacerita['cerita_nama'] = strip_tags(trim($datacerita['cerita_nama']));
         }
         if (isset($datacerita['cerita_isi'])) {
-            $datacerita['cerita_isi'] = $this->sanitizeHtmlContent($datacerita['cerita_isi']);
+            $datacerita['cerita_isi'] = sanitize_html_content($datacerita['cerita_isi']);
         }
 
         $datacerita['cerita_tanggal'] = date('Y-m-d H:i:s');

@@ -100,7 +100,7 @@ class Tanaman extends BaseController
         }
 
         if (isset($data['tanaman_detail'])) {
-            $data['tanaman_detail'] = $this->sanitizeHtmlContent($data['tanaman_detail']);
+            $data['tanaman_detail'] = sanitize_html_content($data['tanaman_detail']);
         }
 
         $doc = new DOMDocument();
@@ -161,7 +161,7 @@ class Tanaman extends BaseController
         }
 
         if (isset($data['tanaman_detail'])) {
-            $data['tanaman_detail'] = $this->sanitizeHtmlContent($data['tanaman_detail']);
+            $data['tanaman_detail'] = sanitize_html_content($data['tanaman_detail']);
         }
 
         $doc = new DOMDocument();

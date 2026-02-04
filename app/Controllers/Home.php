@@ -392,7 +392,7 @@ class Home extends BaseController
         // Get and sanitize input data
         $ceritaNama = strip_tags(trim($this->request->getPost('cerita_nama')));
         $ceritaJudul = strip_tags(trim($this->request->getPost('cerita_judul')));
-        $ceritaIsi = $this->sanitizeHtmlContent($this->request->getPost('cerita_isi'));
+        $ceritaIsi = sanitize_html_content($this->request->getPost('cerita_isi'));
 
         // Additional validation - check for suspicious patterns
         $suspiciousPatterns = ['<script', 'javascript:', 'onclick', 'onerror', 'onload'];

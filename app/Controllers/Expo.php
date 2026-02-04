@@ -68,7 +68,7 @@ class Expo extends BaseController
         }
 
         if (isset($data['expo_isi'])) {
-            $data['expo_isi'] = $this->sanitizeHtmlContent($data['expo_isi']);
+            $data['expo_isi'] = sanitize_html_content($data['expo_isi']);
         }
 
         $doc = new DOMDocument();

@@ -65,7 +65,7 @@ class Berita extends BaseController
 
         // Sanitize HTML content while preserving safe tags
         if (isset($databerita['berita_isi'])) {
-            $databerita['berita_isi'] = $this->sanitizeHtmlContent($databerita['berita_isi']);
+            $databerita['berita_isi'] = sanitize_html_content($databerita['berita_isi']);
         }
 
         //Insert data to Berita
@@ -152,7 +152,7 @@ class Berita extends BaseController
 
         // Sanitize HTML content while preserving safe tags
         if (isset($databerita['berita_isi'])) {
-            $databerita['berita_isi'] = $this->sanitizeHtmlContent($databerita['berita_isi']);
+            $databerita['berita_isi'] = sanitize_html_content($databerita['berita_isi']);
         }
 
         //Update data to Berita
