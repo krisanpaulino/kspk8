@@ -79,6 +79,9 @@ $routes->group('admin', function ($routes) {
     $routes->get('page/edit/(:num)', 'Page::edit/$1');
     $routes->post('page/update', 'Page::update');
 
+    $routes->get('profile', 'Profile::index');
+    $routes->post('profile/change-password', 'Profile::changePassword');
+
     $routes->get('cerita-alumni', 'Cerita::index');
     $routes->get('cerita-alumni/tambah', 'Cerita::tambah');
     $routes->post('cerita-alumni/create', 'Cerita::store');

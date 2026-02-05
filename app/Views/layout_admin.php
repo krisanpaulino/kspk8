@@ -114,6 +114,13 @@
                 </li>
                 <li class="menu-label">Utility</li>
                 <li>
+                    <a href="<?= base_url('admin/profile') ?>">
+                        <div class="parent-icon"><i class="bx bx-user"></i>
+                        </div>
+                        <div class="menu-title">Profile</div>
+                    </a>
+                </li>
+                <li>
                     <a href="<?= base_url('admin/page') ?>">
                         <div class="parent-icon"><i class="bx bx-detail"></i>
                         </div>
@@ -189,7 +196,9 @@
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
+                            <li><a class="dropdown-item" href="<?= base_url('admin/profile') ?>"><i class="bx bx-user"></i><span>Profile</span></a>
+                            </li>
+                            <li><a class="dropdown-item" href="<?= base_url('admin/profile') ?>"><i class="bx bx-key"></i><span>Ubah Password</span></a>
                             </li>
                             <li>
                                 <div class="dropdown-divider mb-0"></div>
