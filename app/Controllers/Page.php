@@ -117,12 +117,15 @@ class Page extends BaseController
         }
 
         // Sanitize input data - only allow safe fields to be updated
-        $allowedFields = ['page_judul', 'page_isi', 'page_keterangan'];
+        $allowedFields = [
+            'page_tag',
+            'page_content'
+        ];
         $sanitizedData = [];
 
         foreach ($allowedFields as $field) {
             if (isset($datapage[$field])) {
-                if ($field === 'page_isi') {
+                if ($field === 'page_content') {
                     // Allow HTML content but sanitize it
                     $sanitizedData[$field] = sanitize_html_content($datapage[$field]);
                 } else {
