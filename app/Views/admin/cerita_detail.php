@@ -65,12 +65,7 @@
                     </section>
                 </article>
             </div>
-            <?php if ($cerita->cerita_status == 'pending') : ?>
-                <div class="d-flex justify-content-between mb-4">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#approve" data-id="<?= $cerita->cerita_id ?>" class="btn btn-primary">Approve</button>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#reject" data-id="<?= $cerita->cerita_id ?>" class="btn btn-danger">Reject</button>
-                </div>
-            <?php endif ?>
+
         </div>
     </div>
 </div>
@@ -153,6 +148,11 @@
         var kode = $(event.relatedTarget).data('id');
         $(this).find('#kodeitemreject').attr("value", kode);
         // $(this).find('#namaitem').attr("value", nama);
+    });
+    $('#delete').on('show.bs.modal', function(event) {
+        console.log('Delete modal show');
+        var kode = $(event.relatedTarget).data('id');
+        $(this).find('#kodeitemdelete').attr("value", kode);
     });
 </script>
 <?= $this->endSection(); ?>
