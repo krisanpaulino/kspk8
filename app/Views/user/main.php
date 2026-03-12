@@ -22,6 +22,31 @@
     <link rel="stylesheet" href="<?= base_url('/') ?>assets-user/css/style.css">
     <link rel="stylesheet" href="<?= base_url('/') ?>assets-user/css/responsive.css">
     <style>
+        .article-content {
+            max-width: 100%;
+            margin: 0 auto;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-title {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            font-size: 0.9rem;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 1rem;
+        }
+
+        .article-body {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #495057;
+        }
+
         /* CKEditor Content Styles */
         .ck-content-wrapper {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

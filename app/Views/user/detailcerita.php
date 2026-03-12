@@ -2,16 +2,20 @@
 <?= $this->section('content'); ?>
 <section class="latest_blog_area section_gap">
     <div class="container">
-        <div class="section_title text-center">
-            <h2 class="title_color"><?= esc($cerita->cerita_judul) ?></h2>
-        </div>
-        <div class="mt-4 mb-4">
-            <?= esc(date('d-M-Y h:i:sa', strtotime($cerita->cerita_tanggal))) ?><br>
-            <?= esc($cerita->cerita_nama) ?> (<?= esc($cerita->alumni_nim) ?>)<br>
-        </div>
-        <div class="row mb_30">
-            <div class="ck-content-wrapper">
-                <?= sanitize_html_content($cerita->cerita_isi) ?>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <article class="article-content bg-white p-4 rounded shadow-sm">
+                    <header class="article-header text-center mb-4">
+                        <h1 class="article-title display-4 text-dark"><?= esc($cerita->cerita_judul) ?></h1>
+                        <div class="article-meta text-muted">
+                            <span>By <?= esc($cerita->cerita_nama) ?></span> |
+                            <span><?= esc(date('d-M-Y h:i:sa', strtotime($cerita->cerita_tanggal))) ?></span>
+                        </div>
+                    </header>
+                    <div class="article-body ck-content-wrapper">
+                        <?= sanitize_html_content($cerita->cerita_isi) ?>
+                    </div>
+                </article>
             </div>
         </div>
     </div>
