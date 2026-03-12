@@ -47,7 +47,7 @@ $routes->group('admin', function ($routes) {
     $routes->get('karier/(:num)', 'Karier::detail/$1');
     $routes->post('karier/insert', 'Karier::insert');
     $routes->post('karier/update', 'Karier::update');
-    $routes->post('karier/delete', 'karier::delete');
+    $routes->post('karier/delete', 'Karier::delete');
 
     $routes->get('kerjasama', 'Kerjasama::index');
     $routes->get('kerjasama/(:num)', 'Kerjasama::edit/$1');
@@ -90,6 +90,7 @@ $routes->group('admin', function ($routes) {
     $routes->get('cerita-alumni/(:num)', 'Cerita::detail/$1');
     $routes->get('cerita-alumni/edit/(:num)', 'Cerita::edit/$1');
     $routes->post('cerita-alumni/update', 'Cerita::update');
+    $routes->post('cerita-alumni/delete', 'Cerita::delete');
     $routes->post('cerita-alumni/approve', 'Cerita::approve');
     $routes->post('cerita-alumni/reject', 'Cerita::reject');
     $routes->post('page/update', 'Page::update');

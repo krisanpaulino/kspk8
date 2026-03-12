@@ -124,6 +124,40 @@ class Cerita extends BaseController
             ->with('danger', 'Gagal menolak cerita!');
     }
 
+    public function delete()
+    {
+        // Validate CSRF token
+        if (!$this->validate(['csrf_test_name' => 'required'])) {
+            return redirect()->back()->with('danger', 'Invalid security token!');
+        }
+
+        $cerita_id = (int) $this->request->getPost('cerita_id');
+
+        // Validate cerita_id
+        if (!$cerita_id || $cerita_id <= 0) {
+            return redirect()->back()->with('danger', 'Invalid cerita ID!');
+        }
+
+        $model = new CeritaModel();
+
+        // Check if record exists
+        $cerita = $model->find($cerita_id);
+        if (!$cerita) {
+            return redirect()->back()->with('danger', 'Cerita tidak ditemukan!');
+        }
+
+        if ($model->delete($cerita_id)) {
+            log_security_event('Cerita deleted', [
+                'cerita_id' => $cerita_id,
+                'admin' => session('user')->user_email ?? 'unknown'
+            ]);
+            return redirect()->to('admin/cerita-alumni')
+                ->with('success', 'Cerita berhasil dihapus!');
+        }
+        return redirect()->back()
+            ->with('danger', 'Gagal menghapus cerita!');
+    }
+
     public function edit($cerita_id)
     {
         $model = new CeritaModel();

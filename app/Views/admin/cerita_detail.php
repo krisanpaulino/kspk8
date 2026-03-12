@@ -33,20 +33,23 @@
         <div class="card-body">
             <h5 class="card-title">Cerita Alumni</h5>
             <hr />
-            <!-- Edit Button -->
-            <div class="row">
-                <div class="col">
-                    <a href="<?= base_url('admin/cerita-alumni/edit/' . $cerita->cerita_id) ?>" class="btn btn-warning mb-3">
-                        <i class="bx bx-edit"></i> Edit
-                    </a>
-                </div>
+            <!-- action toolbar -->
+            <div class="d-flex flex-wrap align-items-center mb-4 gap-2">
+                <a href="<?= base_url('admin/cerita-alumni/edit/' . $cerita->cerita_id) ?>" class="btn btn-warning">
+                    <i class="bx bx-edit"></i> Edit
+                </a>
+                <?php if ($cerita->cerita_status == 'pending') : ?>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#approve" data-id="<?= $cerita->cerita_id ?>" class="btn btn-success">
+                        <i class="bx bx-check"></i> Approve
+                    </button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#reject" data-id="<?= $cerita->cerita_id ?>" class="btn btn-danger">
+                        <i class="bx bx-x"></i> Reject
+                    </button>
+                <?php endif; ?>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#delete" data-id="<?= $cerita->cerita_id ?>" class="btn btn-outline-danger">
+                    <i class="bx bx-trash"></i> Delete
+                </button>
             </div>
-            <?php if ($cerita->cerita_status == 'pending') : ?>
-                <div class="d-flex justify-content-between mb-4">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#approve" data-id="<?= $cerita->cerita_id ?>" class="btn btn-primary">Approve</button>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#reject" data-id="<?= $cerita->cerita_id ?>" class="btn btn-danger">Reject</button>
-                </div>
-            <?php endif ?>
             <!-- story article -->
             <div class="article-container my-4">
                 <article class="p-4 bg-white border rounded shadow-sm">
@@ -108,6 +111,29 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-danger">Reject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- delete modal -->
+<div class="modal fade in" id="delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?= base_url('admin/cerita-alumni/delete') ?>" method="post">
+                <div class="modal-body">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="cerita_id" id="kodeitemdelete" class="d-flex d-none">
+                    <h5>Anda yakin ingin menghapus cerita alumni?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
                 </div>
             </form>
         </div>
