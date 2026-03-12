@@ -192,8 +192,8 @@ class Cerita extends BaseController
         $cerita_isi = sanitize_html_content($this->request->getPost('cerita_isi'));
         $cerita_nama = strip_tags(trim($this->request->getPost('cerita_nama')));
 
-        var_dump($cerita_id);
-        die;
+        // var_dump($cerita_id);
+        // die;
         // Validate cerita_id
         if (!$cerita_id || $cerita_id <= 0) {
             return redirect()->back()->with('danger', 'Invalid cerita ID!');
