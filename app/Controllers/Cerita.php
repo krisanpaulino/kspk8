@@ -266,7 +266,7 @@ class Cerita extends BaseController
                 ->with('danger', 'Gagal menambahkan cerita! Data tidak lengkap')->withInput();
         }
 
-        return redirect()->to('admin/cerita-alumni')
+        return redirect()->to('admin/cerita-alumni/approved')
             ->with('success', 'Cerita alumni berhasil ditambahkan!');
     }
 }

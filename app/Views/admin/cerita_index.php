@@ -38,16 +38,16 @@
             <h5 class="card-title">Cerita Alumni</h5>
             <hr />
             <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <table id="example" class="table table-striped table-bordered" style="table-layout:fixed; width:100%">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Tanggal</th>
-                            <th>Judul</th>
-                            <th>NIM</th>
-                            <th>Nama Alumni</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th style="width:5%">No</th>
+                            <th style="width:15%">Tanggal</th>
+                            <th style="width:25%">Judul</th>
+                            <th style="width:10%">NIM</th>
+                            <th style="width:20%">Nama Alumni</th>
+                            <th style="width:10%">Status</th>
+                            <th style="width:15%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,11 +56,11 @@
                         foreach ($cerita as $row) : ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td><?= $row->cerita_tanggal ?></td>
-                                <td><?= $row->cerita_judul ?></td>
-                                <td><?= $row->alumni_nim ?></td>
-                                <td><?= $row->cerita_nama ?></td>
-                                <td><?= $row->cerita_status ?></td>
+                                <td class="text-truncate" style="max-width:120px;"><?= $row->cerita_tanggal ?></td>
+                                <td style="max-width:300px; word-wrap:break-word; white-space:normal;"><?= $row->cerita_judul ?></td>
+                                <td class="text-truncate" style="max-width:80px;"><?= $row->alumni_nim ?></td>
+                                <td class="text-truncate" style="max-width:200px;"><?= $row->cerita_nama ?></td>
+                                <td class="text-truncate" style="max-width:80px;"><?= $row->cerita_status ?></td>
                                 <td>
                                     <a href="<?= base_url('admin/cerita-alumni/' . $row->cerita_id) ?>" class="badge bg-info">Detail</a>
                                 </td>

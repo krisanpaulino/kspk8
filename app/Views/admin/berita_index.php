@@ -35,13 +35,13 @@
             <h5 class="card-title">Data KSPK Dalam Berita</h5>
             <hr />
             <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <table id="example" class="table table-striped table-bordered" style="table-layout:fixed; width:100%">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Judul Berita</th>
-                            <th>Tanggal</th>
-                            <th>Action</th>
+                            <th style="width:5%">No</th>
+                            <th style="width:60%">Judul Berita</th>
+                            <th style="width:20%">Tanggal</th>
+                            <th style="width:15%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,8 +49,8 @@
                         <?php foreach ($berita as $row) : ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td><?= esc($row->berita_judul) ?></td>
-                                <td><?= esc($row->berita_tanggal) ?></td>
+                                <td style="max-width:400px; word-wrap:break-word; white-space:normal;"><?= esc($row->berita_judul) ?></td>
+                                <td class="text-truncate" style="max-width:120px;"><?= esc($row->berita_tanggal) ?></td>
                                 <td>
                                     <a href="<?= base_url('admin/berita/edit/' . esc($row->berita_id)) ?>" class="badge bg-primary text-light">Edit</a>
                                     <a href="javascript:;" class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#hapus" data-id="<?= esc($row->berita_id) ?>">Hapus </a>

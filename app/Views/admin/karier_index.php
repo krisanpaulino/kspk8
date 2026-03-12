@@ -92,21 +92,21 @@
         <h5 class="card-title">Data Kelas Persiapan Karier</h5>
         <hr />
         <div class="table-responsive">
-            <table id="example" class="table table-striped table-bordered" >
+            <table id="example" class="table table-striped table-bordered" style="table-layout:fixed;">
                 <thead>
                     <tr>
-                        <th>Nama Kelas</th>
-                        <th>Tanggal</th>
-                        <th>Deskripsi</th>
-                        <th>Action</th>
+                        <th style="width:25%">Nama Kelas</th>
+                        <th style="width:15%">Tanggal</th>
+                        <th style="width:40%">Deskripsi</th>
+                        <th style="width:20%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($karier as $row) : ?>
                         <tr>
-                            <td><?= $row->karier_judul ?></td>
-                            <td><?= $row->karier_tanggal ?></td>
-                            <td><?= substr(strip_tags(preg_replace("/<img[^>]+\>/i", "", $row->karier_isi)), 0, 50) ?> ...</td>
+                            <td style="max-width:200px; word-wrap:break-word; white-space:normal;"><?= $row->karier_judul ?></td>
+                            <td class="text-truncate" style="max-width:100px;"><?= $row->karier_tanggal ?></td>
+                            <td class="text-truncate" style="max-width:300px;"><?= substr(strip_tags(preg_replace("/<img[^>]+\>/i", "", $row->karier_isi)), 0, 50) ?> ...</td>
                             <td>
                                 <a href="<?= base_url('admin/karier/' . $row->karier_id) ?>" class="badge bg-info">Edit</a>
                                 <a href="javascript;" data-bs-toggle="modal" data-bs-target="#hapus" data-id="<?= $row->karier_id ?>" class="badge bg-danger">Hapus</a>
