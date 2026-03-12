@@ -10,7 +10,9 @@
             <?= esc($cerita->cerita_nama) ?> (<?= esc($cerita->alumni_nim) ?>)<br>
         </div>
         <div class="row mb_30">
-            <?= sanitize_html_content($cerita->cerita_isi) ?>
+            <div class="ck-content-wrapper">
+                <?= sanitize_html_content($cerita->cerita_isi) ?>
+            </div>
         </div>
     </div>
 </section>
