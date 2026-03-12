@@ -9,7 +9,7 @@
             <?= esc(date('d-M-Y h:i:sa', strtotime($berita->berita_tanggal))) ?>
         </div>
         <div class="row mb_30">
-            <?= sanitize_html_content($berita->berita_isi) ?>
+            <?= $berita->berita_isi ?>
         </div>
     </div>
 </section>
