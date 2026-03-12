@@ -54,7 +54,7 @@
             <div class="article-container my-4">
                 <article class="p-4 bg-white border rounded shadow-sm">
                     <header class="mb-4">
-                        <h3 class="display-4 text-center"><?= $cerita->cerita_judul ?></h3>
+                        <h3 class="display-6 text-center"><?= $cerita->cerita_judul ?></h3>
                         <p class="text-center text-muted">
                             <span>By <?= $cerita->cerita_nama ?></span> &bull;
                             <span><?= $cerita->cerita_tanggal ?></span>
