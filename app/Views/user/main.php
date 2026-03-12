@@ -21,6 +21,186 @@
     <!-- main css -->
     <link rel="stylesheet" href="<?= base_url('/') ?>assets-user/css/style.css">
     <link rel="stylesheet" href="<?= base_url('/') ?>assets-user/css/responsive.css">
+    <style>
+        /* CKEditor Content Styles */
+        .ck-content-wrapper {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 100%;
+        }
+
+        .ck-content-wrapper h1,
+        .ck-content-wrapper h2,
+        .ck-content-wrapper h3,
+        .ck-content-wrapper h4,
+        .ck-content-wrapper h5,
+        .ck-content-wrapper h6 {
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .ck-content-wrapper h1 {
+            font-size: 2.5rem;
+        }
+
+        .ck-content-wrapper h2 {
+            font-size: 2rem;
+        }
+
+        .ck-content-wrapper h3 {
+            font-size: 1.75rem;
+        }
+
+        .ck-content-wrapper h4 {
+            font-size: 1.5rem;
+        }
+
+        .ck-content-wrapper h5 {
+            font-size: 1.25rem;
+        }
+
+        .ck-content-wrapper h6 {
+            font-size: 1rem;
+        }
+
+        .ck-content-wrapper p {
+            margin-bottom: 1.5rem;
+        }
+
+        .ck-content-wrapper ul,
+        .ck-content-wrapper ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .ck-content-wrapper li {
+            margin-bottom: 0.5rem;
+        }
+
+        .ck-content-wrapper blockquote {
+            font-style: italic;
+            margin: 2rem 0;
+            padding: 1rem 2rem;
+            border-left: 4px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .ck-content-wrapper pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 1.5rem;
+        }
+
+        .ck-content-wrapper code {
+            background-color: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ck-content-wrapper table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        .ck-content-wrapper th,
+        .ck-content-wrapper td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .ck-content-wrapper th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .ck-content-wrapper img {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+        }
+
+        .ck-content-wrapper figure {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .ck-content-wrapper figcaption {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .ck-content-wrapper hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 2rem 0;
+        }
+
+        .ck-content-wrapper .text-center {
+            text-align: center;
+        }
+
+        .ck-content-wrapper .text-left {
+            text-align: left;
+        }
+
+        .ck-content-wrapper .text-right {
+            text-align: right;
+        }
+
+        .ck-content-wrapper .text-justify {
+            text-align: justify;
+        }
+
+        .ck-content-wrapper strong,
+        .ck-content-wrapper b {
+            font-weight: 600;
+        }
+
+        .ck-content-wrapper em,
+        .ck-content-wrapper i {
+            font-style: italic;
+        }
+
+        .ck-content-wrapper u {
+            text-decoration: underline;
+        }
+
+        .ck-content-wrapper s,
+        .ck-content-wrapper strike {
+            text-decoration: line-through;
+        }
+
+        .ck-content-wrapper mark {
+            background-color: #fff3cd;
+            padding: 0.2rem;
+        }
+
+        .ck-content-wrapper sub {
+            vertical-align: sub;
+            font-size: 0.8em;
+        }
+
+        .ck-content-wrapper sup {
+            vertical-align: super;
+            font-size: 0.8em;
+        }
+
+        .ck-content-wrapper small {
+            font-size: 0.875em;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
