@@ -47,15 +47,20 @@
                     <button type="button" data-bs-toggle="modal" data-bs-target="#reject" data-id="<?= $cerita->cerita_id ?>" class="btn btn-danger">Reject</button>
                 </div>
             <?php endif ?>
-            <span class="text-small text-muted"> By <?= $cerita->cerita_nama ?></span> <br>
-            <span class="text-small text-muted"> On <?= $cerita->cerita_tanggal ?></span>
-
-            <div class="text-center">
-                <h1 class="display-4"><?= $cerita->cerita_judul ?></h1>
-            </div>
-
-            <div class="mb-4">
-                <?= $cerita->cerita_isi ?>
+            <!-- story article -->
+            <div class="article-container my-4">
+                <article class="p-4 bg-white border rounded shadow-sm">
+                    <header class="mb-4">
+                        <h1 class="display-4 text-center"><?= $cerita->cerita_judul ?></h1>
+                        <p class="text-center text-muted">
+                            <span>By <?= $cerita->cerita_nama ?></span> &bull;
+                            <span><?= $cerita->cerita_tanggal ?></span>
+                        </p>
+                    </header>
+                    <section class="ck-content">
+                        <?= $cerita->cerita_isi ?>
+                    </section>
+                </article>
             </div>
             <?php if ($cerita->cerita_status == 'pending') : ?>
                 <div class="d-flex justify-content-between mb-4">
