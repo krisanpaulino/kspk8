@@ -200,7 +200,7 @@ class Cerita extends BaseController
         }
 
         $validationRules = [
-            'cerita_judul' => 'required|min_length[5]|max_length[200]',
+            'cerita_judul' => 'required|min_length[5]',
             'cerita_isi' => 'required|min_length[10]',
             'cerita_nama' => 'required|min_length[2]|max_length[100]|alpha_space',
         ];
