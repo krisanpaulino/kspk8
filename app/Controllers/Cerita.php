@@ -256,7 +256,7 @@ class Cerita extends BaseController
         }
 
         $datacerita['cerita_tanggal'] = date('Y-m-d H:i:s');
-        $datacerita['cerita_status'] = 'pending';
+        $datacerita['cerita_status'] = 'approved';
 
         $model = new CeritaModel();
         $cerita_id = $model->insert($datacerita, true);
