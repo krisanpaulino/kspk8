@@ -7,7 +7,9 @@
         </div>
         <div class="single-post row">
             <div class="col">
-                <?= sanitize_html_content($page->page_content) ?>
+                <div class="ck-content-wrapper">
+                    <?= sanitize_html_content($page->page_content) ?>
+                </div>
             </div>
         </div>
 
