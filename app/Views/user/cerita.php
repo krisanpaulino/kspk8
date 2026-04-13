@@ -5,9 +5,6 @@
         <div class="section_title text-center">
             <h2 class="title_color"><?= $title ?></h2>
         </div>
-        <div class="row">
-            <a href="<?= base_url('/add_cerita') ?>" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i> Tulis cerita anda</a>
-        </div>
         <div class="row mb_30 mt-4">
             <?php
             if (session()->getFlashdata('success')) {

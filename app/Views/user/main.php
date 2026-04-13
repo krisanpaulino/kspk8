@@ -266,7 +266,6 @@
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Alumni</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="<?= base_url('/alumni') ?>">Data alumni</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/page/ikawira') ?>">IKAWIRA</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/kartualumni') ?>">Kartu alumni</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/cerita') ?>">Cerita alumni</a></li>
