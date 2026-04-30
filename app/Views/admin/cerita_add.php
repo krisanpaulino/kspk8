@@ -48,7 +48,7 @@
 
 <?= $this->section('scripts'); ?>
 <!-- <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script> -->
-<script>
+<script {csp-script-nonce}>
     CKEDITOR.replace('editor2', {
         extraPlugins: ['justify', 'btgrid']
     });
