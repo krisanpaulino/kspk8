@@ -264,6 +264,12 @@ class Cerita extends BaseController
 
     public function tambah()
     {
+        // Ambil object CSP dari response
+        $csp = $this->response->getCSP();
+
+        $csp->addScriptSrc("'unsafe-inline'");
+        $csp->addScriptSrc("'unsafe-eval'");
+        $csp->addStyleSrc("'unsafe-inline'");
         $data = [
             'title' => 'Tambah Cerita Alumni',
             'url' => 'store'
