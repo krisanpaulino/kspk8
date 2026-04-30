@@ -64,6 +64,7 @@ class ContentSecurityPolicy extends BaseConfig
         'https://ajax.googleapis.com',
         'https://cdn.datatables.net',
         'https://maxcdn.bootstrapcdn.com',
+        'https://static.cloudflareinsights.com/', // Cloudflare Insights
         'unsafe-inline', // Required for some legacy inline scripts - use sparingly
     ];
 
@@ -74,7 +75,7 @@ class ContentSecurityPolicy extends BaseConfig
      */
     public $styleSrc = [
         'self',
-        'https://cloudflareinsights.com/',
+        'https://static.cloudflareinsights.com/',
         'https://fonts.googleapis.com',
         'https://cdn.jsdelivr.net',
         'https://cdnjs.cloudflare.com',
@@ -136,6 +137,7 @@ class ContentSecurityPolicy extends BaseConfig
         'https://api.github.com', // GitHub API
         'https://cdn.jsdelivr.net',
         'https://cdnjs.cloudflare.com',
+        'https://cloudflareinsights.com/', // Cloudflare Insights
     ];
 
     /**
