@@ -44,12 +44,12 @@ class Filters extends BaseConfig
             'toolbar',
             'honeypot',
             'secureheaders',
-            'contentsecuritypolicy' => [
-                'except' => [
-                    'admin/cerita-alumni/tambah', // Ganti dengan route editor Anda
-                    'admin/cerita-alumni/edit/*', // Gunakan wildcard untuk ID
-                ]
-            ],
+            // 'contentsecuritypolicy' => [
+            //     'except' => [
+            //         'admin/cerita-alumni/tambah', // Ganti dengan route editor Anda
+            //         'admin/cerita-alumni/edit/*', // Gunakan wildcard untuk ID
+            //     ]
+            // ],
         ],
     ];
 
