@@ -65,7 +65,8 @@ class ContentSecurityPolicy extends BaseConfig
         'https://cdn.datatables.net',
         'https://maxcdn.bootstrapcdn.com',
         'https://static.cloudflareinsights.com/', // Cloudflare Insights
-        'unsafe-inline', // Required for some legacy inline scripts - use sparingly
+        'unsafe-inline',
+        '\'unsafe-eval\'' // Required for some legacy inline scripts - use sparingly
     ];
 
     /**
@@ -85,6 +86,7 @@ class ContentSecurityPolicy extends BaseConfig
         'https://cdn.datatables.net',
         'https://cdn.tiny.cloud/',
         'unsafe-inline', // Required for inline styles - be cautious
+        '\'unsafe-eval\'' // Required for some legacy inline scripts - use sparingly
     ];
 
     /**

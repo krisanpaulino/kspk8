@@ -29,7 +29,7 @@
 
 <?= $this->section('scripts'); ?>
 <!-- CKEditor CDN, same as add_cerita.php -->
-<script {csp-script-nonce}>
+<script>
     CKEDITOR.replace('editor2', {
         extraPlugins: 'justify'
     });

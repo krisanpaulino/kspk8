@@ -243,7 +243,7 @@
     <script src="<?= base_url() ?>/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="<?= base_url() ?>/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script src="<?= base_url() ?>assets/plugins/chartjs/js/chart.min.js"></script>
-    <script {csp-script-nonce} src="<?= base_url('assets/js/') ?>ckeditor/ckeditor.js"></script>
+    <script src="<?= base_url('assets/js/') ?>ckeditor/ckeditor.js"></script>
     <!--app JS-->
     <script src="<?= base_url() ?>/assets/js/app.js"></script>
     <?= $this->renderSection('scripts'); ?>
