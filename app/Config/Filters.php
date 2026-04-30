@@ -44,7 +44,7 @@ class Filters extends BaseConfig
             'toolbar',
             'honeypot',
             'secureheaders',
-            // 'contentsecuritypolicy' => [
+            // 'csp' => [
             //     'except' => [
             //         'admin/cerita-alumni/tambah', // Ganti dengan route editor Anda
             //         'admin/cerita-alumni/edit/*', // Gunakan wildcard untuk ID
@@ -78,11 +78,11 @@ class Filters extends BaseConfig
      * @var array<string, array<string, list<string>>>
      */
     public array $filters = [
-        'contentsecuritypolicy' => [
-            'except' => [
-                'admin/cerita-alumni/tambah', // Ganti dengan route editor Anda
-                'admin/cerita-alumni/edit/*', // Gunakan wildcard untuk ID
-            ]
-        ],
+        // 'csp' => [
+        //     'except' => [
+        //         'admin/cerita-alumni/tambah', // Ganti dengan route editor Anda
+        //         'admin/cerita-alumni/edit/*', // Gunakan wildcard untuk ID
+        //     ]
+        // ],
     ];
 }
