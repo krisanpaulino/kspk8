@@ -81,6 +81,7 @@ class ContentSecurityPolicy extends BaseConfig
         'https://unpkg.com',
         'https://maxcdn.bootstrapcdn.com',
         'https://cdn.datatables.net',
+        'https://cdn.tiny.cloud/',
         'unsafe-inline', // Required for inline styles - be cautious
     ];
 
