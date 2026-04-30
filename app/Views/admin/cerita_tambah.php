@@ -27,7 +27,7 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section('scripts'); ?>
-<script>
+<script <?= csp_script_nonce() ?>>
     CKEDITOR.replace('editor2', {
         extraPlugins: ['justify', 'btgrid']
     });
