@@ -50,7 +50,8 @@
 <!-- <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script> -->
 <script <?= csp_script_nonce() ?>>
     CKEDITOR.replace('editor2', {
-        extraPlugins: ['justify', 'btgrid']
+        extraPlugins: ['justify', 'btgrid'],
+        versionCheck: false
     });
 </script>
 <?= $this->endSection(); ?>
