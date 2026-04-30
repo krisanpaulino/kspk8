@@ -41,15 +41,14 @@ class Filters extends BaseConfig
             'invalidchars'
         ],
         'after' => [
-            'toolbar',
-            'honeypot',
+            // 'toolbar', // Aktifkan ini hanya untuk pengembangan, jangan diaktifkan di produksi
+            'honeypot' => [
+                'except' => [
+                    'admin/cerita-alumni/tambah',              // Exclude all API routes
+                    'admin/cerita-alumni/edit/*',      // Exclude a specific URL
+                ]
+            ],
             'secureheaders',
-            // 'csp' => [
-            //     'except' => [
-            //         'admin/cerita-alumni/tambah', // Ganti dengan route editor Anda
-            //         'admin/cerita-alumni/edit/*', // Gunakan wildcard untuk ID
-            //     ]
-            // ],
         ],
     ];
 
@@ -77,12 +76,5 @@ class Filters extends BaseConfig
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [
-        // 'csp' => [
-        //     'except' => [
-        //         'admin/cerita-alumni/tambah', // Ganti dengan route editor Anda
-        //         'admin/cerita-alumni/edit/*', // Gunakan wildcard untuk ID
-        //     ]
-        // ],
-    ];
+    public array $filters = [];
 }
