@@ -65,8 +65,8 @@ class ContentSecurityPolicy extends BaseConfig
         'https://cdn.datatables.net',
         'https://maxcdn.bootstrapcdn.com',
         'https://static.cloudflareinsights.com/', // Cloudflare Insights
-        'unsafe-inline',
-        'unsafe-eval' // Required for some legacy inline scripts - use sparingly
+        '\'unsafe-inline\'', // WAJIB untuk CKEditor 4 agar tombol bisa diklik
+        '\'unsafe-eval\'', // WAJIB untuk CKEditor 4 agar fungsi bisa berjalan, gunakan dengan hati-hati
     ];
 
     /**
@@ -85,8 +85,7 @@ class ContentSecurityPolicy extends BaseConfig
         'https://maxcdn.bootstrapcdn.com',
         'https://cdn.datatables.net',
         'https://cdn.tiny.cloud/',
-        'unsafe-inline', // Required for inline styles - be cautious
-        'unsafe-eval' // Required for some legacy inline scripts - use sparingly
+        '\'unsafe-inline\'', // WAJIB untuk CKEditor 4 agar toolbar bisa tampil dengan benar, gunakan dengan hati-hati
     ];
 
     /**
