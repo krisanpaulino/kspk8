@@ -82,6 +82,7 @@ class ContentSecurityPolicy extends BaseConfig
         'https://maxcdn.bootstrapcdn.com',
         'https://cdn.datatables.net',
         'https://cdn.tiny.cloud/',
+        'https://static.cloudflareinsights.com/',
         'unsafe-inline', // Required for inline styles - be cautious
     ];
 
