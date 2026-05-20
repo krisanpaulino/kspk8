@@ -28,6 +28,9 @@
             <div class="text-white"><?= session('danger') ?></div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        <?php foreach ($errors as $item) : ?>
+            <li><?= $item ?></li>
+        <?php endforeach ?>
     <?php endif ?>
     <div class="card">
         <div class="card-body">
