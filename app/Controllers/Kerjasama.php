@@ -121,10 +121,6 @@ class Kerjasama extends BaseController
             $data['kerjasama_judul'] = strip_tags(trim($data['kerjasama_judul']));
         }
 
-        if (isset($data['kerjasama_isi'])) {
-            $data['kerjasama_isi'] = sanitize_html_content($data['kerjasama_isi']);
-        }
-
         $doc = new DOMDocument();
         $doc->encoding = 'UTF-8';
 
@@ -132,6 +128,10 @@ class Kerjasama extends BaseController
         libxml_use_internal_errors(true);
         @$doc->loadHTML('<?xml encoding="UTF-8">' . $data['kerjasama_isi'], LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_clear_errors();
+
+        if (isset($data['kerjasama_isi'])) {
+            $data['kerjasama_isi'] = sanitize_html_content($data['kerjasama_isi']);
+        }
 
         $tags = $doc->getElementsByTagName('img');
 
