@@ -20,6 +20,8 @@ $routes->get('/kartualumni', 'Home::kartualumni');
 $routes->post('/cetakkartu', 'Home::cetakkartu');
 $routes->get('/cetakkartu', 'Home::cetakkartu');
 $routes->get('/cerita', 'Home::cerita');
+$routes->get('/artikel', 'Home::artikel');
+$routes->get('/artikel/(:num)', 'Home::detailartikel/$1');
 $routes->get('/karier', 'Home::karier');
 $routes->get('/karier/(:any)', 'Home::karierdetail/$1');
 $routes->get('/detailcerita/(:any)', 'Home::detailcerita/$1');
@@ -74,6 +76,15 @@ $routes->group('admin', function ($routes) {
     $routes->post('berita/update', 'Berita::update');
     $routes->post('berita/delete', 'Berita::delete');
     $routes->get('berita/edit/(:num)', 'Berita::edit/$1');
+
+    $routes->get('artikel', 'Artikel::index');
+    $routes->get('artikel/tambah', 'Artikel::tambah');
+    $routes->post('artikel/insert', 'Artikel::insert');
+    $routes->post('artikel/tag-add', 'Artikel::addTag');
+    $routes->get('artikel/edit/(:num)', 'Artikel::edit/$1');
+    $routes->post('artikel/update', 'Artikel::update');
+    $routes->post('artikel/delete', 'Artikel::delete');
+    $routes->get('artikel/(:num)', 'Artikel::detail/$1');
 
     $routes->get('page', 'Page::index');
     $routes->get('page/edit/(:num)', 'Page::edit/$1');

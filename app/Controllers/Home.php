@@ -11,6 +11,7 @@ use App\Models\CetakModel;
 use App\Models\KarierModel;
 use App\Models\KerjasamaModel;
 use App\Models\PageModel;
+use App\Models\ArtikelModel;
 use DOMDocument;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -22,6 +23,7 @@ class Home extends BaseController
         $beritaModel = new BeritaModel();
         $agendaModel = new AgendaModel();
         $alumniModel = new AlumniModel();
+        $artikelModel = new ArtikelModel();
 
         $data['title'] = 'KSPK UNWIRA - Home';
         $data['berita'] = $beritaModel->orderBy('berita_tanggal', 'DESC')->findAll(3);
@@ -29,8 +31,50 @@ class Home extends BaseController
         $data['alumni'] = $alumniModel->jumlah();
         $data['chart_alumni'] = $alumniModel->countTahun(5);
         $data['tahunalumni'] = $alumniModel->countTahun();
+        $data['artikel_latest'] = $artikelModel
+            ->where('status', 'published')
+            ->orderBy('published_at', 'DESC')
+            ->findAll(4);
 
         return view('user/home', $data);
+    }
+
+    public function artikel()
+    {
+        $artikelModel = new ArtikelModel();
+        $keyword = trim($this->request->getGet('keyword'));
+
+        $builder = $artikelModel->where('status', 'published');
+
+        if ($keyword !== '') {
+            $builder = $builder->groupStart()
+                ->like('judul', $keyword)
+                ->orLike('isi', $keyword)
+                ->groupEnd();
+        }
+
+        $data['title'] = 'KSPK UNWIRA - Artikel';
+        $data['keyword'] = $keyword;
+        $data['artikel'] = $builder->orderBy('published_at', 'DESC')->paginate(12, 'paginasi');
+        $data['pager'] = $artikelModel->pager;
+
+        return view('user/artikel', $data);
+    }
+
+    public function detailartikel($id)
+    {
+        $artikelModel = new ArtikelModel();
+        $artikel = $artikelModel->where('status', 'published')->find($id);
+
+        if (!$artikel) {
+            return redirect()->to('/artikel')->with('danger', 'Artikel tidak ditemukan.');
+        }
+
+        $artikelModel->update($id, ['views' => ($artikel->views ?? 0) + 1]);
+
+        $data['title'] = 'KSPK UNWIRA - ' . $artikel->judul;
+        $data['artikel'] = $artikel;
+        return view('user/detailartikel', $data);
     }
 
     public function page($tag)

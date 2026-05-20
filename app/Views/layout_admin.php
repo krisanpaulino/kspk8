@@ -100,6 +100,13 @@
                     </a>
                 </li>
                 <li>
+                    <a href="<?= base_url('admin/artikel') ?>">
+                        <div class="parent-icon"><i class="bx bx-notepad"></i>
+                        </div>
+                        <div class="menu-title">Artikel</div>
+                    </a>
+                </li>
+                <li>
                     <a class="has-arrow" href="javascript:;">
                         <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
                         </div>

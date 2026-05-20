@@ -46,6 +46,10 @@ class Filters extends BaseConfig
                 'except' => [
                     'admin/cerita-alumni/tambah',              // Exclude all API routes
                     'admin/cerita-alumni/edit/*',      // Exclude a specific URL
+                    'admin/artikel/tambah',      // Exclude a specific URL
+                    'admin/artikel/edit/*',      // Exclude a specific URL
+                    'admin/kerjasama/tambah',      // Exclude a specific URL
+                    'admin/kerjasama/edit/*',      // Exclude a specific URL
                 ]
             ],
             'secureheaders',
