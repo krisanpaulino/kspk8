@@ -121,46 +121,59 @@ class Kerjasama extends BaseController
             $data['kerjasama_judul'] = strip_tags(trim($data['kerjasama_judul']));
         }
 
+        // Prepare and sanitize content first
+        $content = isset($data['kerjasama_isi']) ? $this->sanitizeHtmlContent($data['kerjasama_isi']) : '';
+        $data['kerjasama_isi'] = $content;
+
         $doc = new DOMDocument();
         $doc->encoding = 'UTF-8';
 
         // Suppress warnings for invalid HTML
         libxml_use_internal_errors(true);
-        @$doc->loadHTML('<?xml encoding="UTF-8">' . $data['kerjasama_isi'], LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        @$doc->loadHTML('<?xml encoding="UTF-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_clear_errors();
-
-        if (isset($data['kerjasama_isi'])) {
-            $data['kerjasama_isi'] = sanitize_html_content($data['kerjasama_isi']);
-        }
 
         $tags = $doc->getElementsByTagName('img');
 
         if ($tags->count() > 0) {
-            $url = $tags[0]->getAttribute('src');
+            $url = trim($tags[0]->getAttribute('src'));
+            $image = null;
 
-            // Validate and sanitize image URL
-            if (filter_var($url, FILTER_VALIDATE_URL) || strpos($url, 'data:image/') === 0) {
-                $pathinfo = pathinfo($url);
-                if (isset($pathinfo['filename']) && isset($pathinfo['extension'])) {
-                    // Sanitize filename to prevent directory traversal
-                    $image = preg_replace('/[^a-zA-Z0-9_\-.]/', '', $pathinfo['filename'] . '.' . $pathinfo['extension']);
-                    $data['kerjasama_gambar'] = $image;
+            if ($url !== '') {
+                // Data URI: extract mime type for extension
+                if (strpos($url, 'data:image/') === 0) {
+                    if (preg_match('#^data:image/([a-zA-Z0-9+]+);#', $url, $m)) {
+                        $ext = strtolower(str_replace('jpeg', 'jpg', $m[1]));
+                        $image = 'embedded_' . time() . '.' . $ext;
+                    }
+                } else {
+                    // Remove query string then take basename
+                    $url_no_query = preg_replace('/\?.*$/', '', $url);
+                    $pathinfo = pathinfo($url_no_query);
+                    if (!empty($pathinfo['basename'])) {
+                        $image = preg_replace('/[^a-zA-Z0-9_\-.]/', '', $pathinfo['basename']);
+                    }
                 }
+            }
+
+            if (!empty($image)) {
+                $data['kerjasama_gambar'] = $image;
             }
 
             if ($model->insert($data)) {
                 return redirect()->to('admin/kerjasama')
                     ->with('success', 'Data kerjsama berhasil disimpan!!');
             }
+
             return redirect()->back()
                 ->with('errors', $model->errors())
                 ->with('danger', 'Periksa kembali data kerjsama!')
                 ->withInput();
-        } else {
-            return redirect()->back()
-                ->with('danger', 'Detail kerjasama harus ada gambar!')
-                ->withInput();
         }
+
+        return redirect()->back()
+            ->with('danger', 'Detail kerjasama harus ada gambar!')
+            ->withInput();
     }
     public function update()
     {
@@ -182,31 +195,41 @@ class Kerjasama extends BaseController
             $data['kerjasama_judul'] = strip_tags(trim($data['kerjasama_judul']));
         }
 
-        if (isset($data['kerjasama_isi'])) {
-            $data['kerjasama_isi'] = sanitize_html_content($data['kerjasama_isi']);
-        }
+        // Prepare and sanitize content first
+        $content = isset($data['kerjasama_isi']) ? $this->sanitizeHtmlContent($data['kerjasama_isi']) : '';
+        $data['kerjasama_isi'] = $content;
 
         $doc = new DOMDocument();
         $doc->encoding = 'UTF-8';
 
         // Suppress warnings for invalid HTML
         libxml_use_internal_errors(true);
-        @$doc->loadHTML('<?xml encoding="UTF-8">' . $data['kerjasama_isi'], LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        @$doc->loadHTML('<?xml encoding="UTF-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_clear_errors();
 
         $tags = $doc->getElementsByTagName('img');
 
         if ($tags->count() > 0) {
-            $url = $tags[0]->getAttribute('src');
+            $url = trim($tags[0]->getAttribute('src'));
+            $image = null;
 
-            // Validate and sanitize image URL
-            if (filter_var($url, FILTER_VALIDATE_URL) || strpos($url, 'data:image/') === 0) {
-                $pathinfo = pathinfo($url);
-                if (isset($pathinfo['filename']) && isset($pathinfo['extension'])) {
-                    // Sanitize filename to prevent directory traversal
-                    $image = preg_replace('/[^a-zA-Z0-9_\-.]/', '', $pathinfo['filename'] . '.' . $pathinfo['extension']);
-                    $data['kerjasama_gambar'] = $image;
+            if ($url !== '') {
+                if (strpos($url, 'data:image/') === 0) {
+                    if (preg_match('#^data:image/([a-zA-Z0-9+]+);#', $url, $m)) {
+                        $ext = strtolower(str_replace('jpeg', 'jpg', $m[1]));
+                        $image = 'embedded_' . time() . '.' . $ext;
+                    }
+                } else {
+                    $url_no_query = preg_replace('/\?.*$/', '', $url);
+                    $pathinfo = pathinfo($url_no_query);
+                    if (!empty($pathinfo['basename'])) {
+                        $image = preg_replace('/[^a-zA-Z0-9_\-.]/', '', $pathinfo['basename']);
+                    }
                 }
+            }
+
+            if (!empty($image)) {
+                $data['kerjasama_gambar'] = $image;
             }
 
             if ($model->update($kerjasama_id, $data)) {
@@ -218,12 +241,11 @@ class Kerjasama extends BaseController
                     ->with('danger', 'Periksa kembali data kerjasama!')
                     ->withInput();
             }
-            // dd($image);
-        } else {
-            return redirect()->back()
-                ->with('danger', 'Detail kerjasama harus ada gambar!')
-                ->withInput();
         }
+
+        return redirect()->back()
+            ->with('danger', 'Detail kerjasama harus ada gambar!')
+            ->withInput();
     }
     function delete()
     {
