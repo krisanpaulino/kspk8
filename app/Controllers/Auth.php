@@ -3,8 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\PakarModel;
-use App\Models\PetaniModel;
+use App\Models\LoginLogModel;
 use App\Models\UserModel;
 
 class Auth extends BaseController
@@ -70,6 +69,15 @@ class Auth extends BaseController
         // Clear login attempts on successful login
         $cache->delete($cacheKey);
 
+        // Log successful login activity
+        $loginLog = new LoginLogModel();
+        $loginLog->insert([
+            'user_id' => $user->user_id,
+            'user_email' => $user->user_email,
+            'user_type' => $user->user_type,
+            'ip_address' => $clientIP,
+            'user_agent' => $this->request->getUserAgent()->getAgentString(),
+        ]);
 
         switch ($user->user_type) {
             case 'admin':
