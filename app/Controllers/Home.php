@@ -194,9 +194,6 @@ class Home extends BaseController
     public function cetakkartu()
     {
         // Validate CSRF token first
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('error', 'Invalid security token!');
-        }
 
         // Rate limiting for card printing
         $clientIP = $this->request->getIPAddress();
@@ -386,9 +383,6 @@ class Home extends BaseController
     function create_cerita()
     {
         // Validate CSRF token first
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         // Rate limiting for public submissions
         $clientIP = $this->request->getIPAddress();

@@ -47,10 +47,6 @@ class Alumni extends BaseController
 
     function insert()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $file = $this->request->getFile('alumnni_foto');
         $model = new AlumniModel();
@@ -87,10 +83,6 @@ class Alumni extends BaseController
 
     public function update()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $data = $this->request->getPost();
         $model = new AlumniModel();
@@ -129,10 +121,6 @@ class Alumni extends BaseController
 
     function delete()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $alumni_id = (int) $this->request->getPost('alumni_id');
 
@@ -160,10 +148,6 @@ class Alumni extends BaseController
 
     public function uploadExcel()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $file_excel = $this->request->getFile('file');
 

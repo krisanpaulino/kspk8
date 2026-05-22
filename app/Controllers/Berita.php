@@ -50,10 +50,6 @@ class Berita extends BaseController
     }
     function insert()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         // Get and validate POST data
         $databerita = $this->request->getPost();
@@ -131,10 +127,6 @@ class Berita extends BaseController
     }
     function update()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         // Get and validate POST data
         $berita_id = (int) $this->request->getPost('berita_id');
@@ -205,10 +197,6 @@ class Berita extends BaseController
     }
     function delete()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $berita_id = (int) $this->request->getPost('berita_id');
 

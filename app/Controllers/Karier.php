@@ -43,10 +43,6 @@ class Karier extends BaseController
 
     function insert()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $file = $this->request->getFile('karier_flyer');
         $model = new KarierModel();
@@ -96,10 +92,6 @@ class Karier extends BaseController
 
     public function update()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $data = (array)$this->request->getPost();
         $model = new KarierModel();
@@ -157,10 +149,6 @@ class Karier extends BaseController
 
     function delete()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $karier_id = (int) $this->request->getPost('karier_id');
 

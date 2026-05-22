@@ -54,10 +54,6 @@ class Expo extends BaseController
 
     function insert()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $model = new ExpoModel();
         $data = $this->request->getPost();
@@ -132,10 +128,6 @@ class Expo extends BaseController
     }
     public function update()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $expo_id = (int) $this->request->getPost('expo_id');
         $data = $this->request->getPost();
@@ -194,10 +186,6 @@ class Expo extends BaseController
 
     function delete()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $expo_id = (int) $this->request->getPost('expo_id');
 

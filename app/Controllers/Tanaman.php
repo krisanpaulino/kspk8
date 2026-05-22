@@ -86,10 +86,6 @@ class Tanaman extends BaseController
     }
     public function store()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $data = $this->request->getPost();
         $model = new TanamanModel();
@@ -142,10 +138,6 @@ class Tanaman extends BaseController
     }
     public function update()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $tanaman_id = (int) $this->request->getPost('tanaman_id');
         if (!$tanaman_id || $tanaman_id <= 0) {
@@ -249,10 +241,6 @@ class Tanaman extends BaseController
     }
     public function delete()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $tanaman_id = (int) $this->request->getPost('tanaman_id');
         if (!$tanaman_id || $tanaman_id <= 0) {

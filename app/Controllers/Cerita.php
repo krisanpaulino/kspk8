@@ -58,10 +58,6 @@ class Cerita extends BaseController
     }
     public function approve()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $cerita_id = (int) $this->request->getPost('cerita_id');
 
@@ -92,10 +88,6 @@ class Cerita extends BaseController
 
     public function reject()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $cerita_id = (int) $this->request->getPost('cerita_id');
 
@@ -126,10 +118,6 @@ class Cerita extends BaseController
 
     public function delete()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $cerita_id = (int) $this->request->getPost('cerita_id');
 
@@ -182,10 +170,6 @@ class Cerita extends BaseController
 
     public function update()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $cerita_id = (int) $this->request->getPost('cerita_id');
         $cerita_judul = strip_tags(trim($this->request->getPost('cerita_judul')));
@@ -273,10 +257,6 @@ class Cerita extends BaseController
 
     public function store()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $datacerita = $this->request->getPost();
 

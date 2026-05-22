@@ -108,10 +108,6 @@ class Kerjasama extends BaseController
     }
     function insert()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $model = new KerjasamaModel();
         $data = $this->request->getPost();
@@ -177,10 +173,6 @@ class Kerjasama extends BaseController
     }
     public function update()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $kerjasama_id = (int) $this->request->getPost('kerjasama_id');
         if (!$kerjasama_id || $kerjasama_id <= 0) {
@@ -249,10 +241,6 @@ class Kerjasama extends BaseController
     }
     function delete()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $kerjasama_id = (int) $this->request->getPost('kerjasama_id');
         if (!$kerjasama_id || $kerjasama_id <= 0) {

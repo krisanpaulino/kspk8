@@ -97,10 +97,6 @@ class Page extends BaseController
     }
     function update()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $page_id = (int) $this->request->getPost('page_id');
         if (!$page_id || $page_id <= 0) {

@@ -19,9 +19,9 @@ class Auth extends BaseController
     public function login()
     {
         // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
+        // if (!$this->validate(['csrf_test_name' => 'required'])) {
+        //     return redirect()->back()->with('danger', 'Invalid security token!');
+        // }
 
         // Rate limiting check (basic implementation)
         $clientIP = $this->request->getIPAddress();

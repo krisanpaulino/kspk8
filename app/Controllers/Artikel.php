@@ -131,16 +131,6 @@ class Artikel extends BaseController
 
     public function insert()
     {
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            if ($this->request->isAJAX()) {
-                return $this->response->setStatusCode(403)->setJSON([
-                    'success' => false,
-                    'message' => 'Invalid security token!',
-                ]);
-            }
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
-
         $judul = strip_tags(trim($this->request->getPost('judul')));
         $isi = $this->sanitizeHtmlContent($this->request->getPost('isi'));
         $status = $this->request->getPost('status') === 'published' ? 'published' : 'draft';
@@ -218,16 +208,6 @@ class Artikel extends BaseController
 
     public function update()
     {
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            if ($this->request->isAJAX()) {
-                return $this->response->setStatusCode(403)->setJSON([
-                    'success' => false,
-                    'message' => 'Invalid security token!',
-                ]);
-            }
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
-
         $id = (int) $this->request->getPost('id');
         if (!$id || $id <= 0) {
             if ($this->request->isAJAX()) {
@@ -292,13 +272,6 @@ class Artikel extends BaseController
 
     public function addTag()
     {
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return $this->response->setStatusCode(403)->setJSON([
-                'success' => false,
-                'message' => 'Invalid security token!',
-            ]);
-        }
-
         $nama = strip_tags(trim($this->request->getPost('nama')));
         if ($nama === '') {
             return $this->response->setStatusCode(422)->setJSON([
@@ -332,10 +305,6 @@ class Artikel extends BaseController
 
     public function delete()
     {
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
-
         $id = (int) $this->request->getPost('id');
         if (!$id || $id <= 0) {
             return redirect()->back()->with('danger', 'Invalid artikel ID!');

@@ -19,10 +19,6 @@ class Agenda extends BaseController
     }
     public function insert()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $data = $this->request->getPost();
 
@@ -53,10 +49,6 @@ class Agenda extends BaseController
 
     public function update()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $data = $this->request->getPost();
         $agenda_id = (int) $this->request->getPost('agenda_id');
@@ -100,10 +92,6 @@ class Agenda extends BaseController
 
     function delete()
     {
-        // Validate CSRF token
-        if (!$this->validate(['csrf_test_name' => 'required'])) {
-            return redirect()->back()->with('danger', 'Invalid security token!');
-        }
 
         $agenda_id = (int) $this->request->getPost('agenda_id');
 
