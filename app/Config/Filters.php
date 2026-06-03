@@ -50,6 +50,7 @@ class Filters extends BaseConfig
                     'admin/artikel/edit/*',      // Exclude a specific URL
                     'admin/kerjasama/tambah',      // Exclude a specific URL
                     'admin/kerjasama/edit/*',      // Exclude a specific URL
+                    'admin/page/edit/*',      // Exclude a specific URL
                 ]
             ],
             'secureheaders',
