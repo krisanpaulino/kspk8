@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="form-group mb-4">
-                            <button type="button" id="submitBtn" class="btn btn-primary">Simpan Artikel</button>
+                            <button type="button" id="submitBtn" type="submit" class="btn btn-primary">Simpan Artikel</button>
                             <a href="<?= base_url('admin/artikel') ?>" class="btn btn-secondary">Batal</a>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-primary">Simpan Tag</button>
+                            <button type="button" id="saveTagBtn" class="btn btn-primary">Simpan Tag</button>
                         </div>
                     </div>
                 </div>
