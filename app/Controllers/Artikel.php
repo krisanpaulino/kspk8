@@ -4,8 +4,8 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ArtikelModel;
+use App\Models\ArtikelTagModel;
 use App\Models\TagArtikelModel;
-use Config\Database;
 
 class Artikel extends BaseController
 {
@@ -68,23 +68,12 @@ class Artikel extends BaseController
 
     private function getSelectedTagIds(int $artikelId): array
     {
-        $db = Database::connect();
-        $rows = $db->table('artikel_tag')->select('tag_id')->where('artikel_id', $artikelId)->get()->getResultArray();
-        return array_column($rows, 'tag_id');
+        return (new ArtikelTagModel())->getTagIdsByArtikel($artikelId);
     }
 
     private function saveArticleTags(int $artikelId, array $tagIds)
     {
-        $db = Database::connect();
-        $builder = $db->table('artikel_tag');
-        $builder->where('artikel_id', $artikelId)->delete();
-        foreach ($tagIds as $tagId) {
-            $tagId = (int) $tagId;
-            if ($tagId <= 0) {
-                continue;
-            }
-            $builder->insert(['artikel_id' => $artikelId, 'tag_id' => $tagId]);
-        }
+        (new ArtikelTagModel())->saveTags($artikelId, $tagIds);
     }
 
     public function index()

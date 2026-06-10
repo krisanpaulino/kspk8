@@ -138,83 +138,83 @@
     });
 
     // Handle form submission via AJAX
-    document.getElementById('submitBtn').addEventListener('click', async function() {
-        const btn = this;
-        const form = document.getElementById('artikelForm');
-        const successAlert = document.getElementById('successAlert');
+    // document.getElementById('submitBtn').addEventListener('click', async function() {
+    //     const btn = this;
+    //     const form = document.getElementById('artikelForm');
+    //     const successAlert = document.getElementById('successAlert');
 
-        // Get form data
-        const formData = new FormData(form);
+    //     // Get form data
+    //     const formData = new FormData(form);
 
-        // Update CKEditor content
-        if (CKEDITOR.instances.editor2) {
-            formData.set('isi', CKEDITOR.instances.editor2.getData());
-        }
+    //     // Update CKEditor content
+    //     if (CKEDITOR.instances.editor2) {
+    //         formData.set('isi', CKEDITOR.instances.editor2.getData());
+    //     }
 
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Menyimpan...';
+    //     btn.disabled = true;
+    //     btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Menyimpan...';
 
-        try {
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                credentials: 'same-origin',
-            });
+    //     try {
+    //         const response = await fetch(form.action, {
+    //             method: 'POST',
+    //             body: formData,
+    //             credentials: 'same-origin',
+    //         });
 
-            const result = await response.json();
+    //         const result = await response.json();
 
-            if (result.success) {
-                // Update CSRF token
-                if (result.csrf_hash) {
-                    const csrfField = form.querySelector('input[name="<?= csrf_token() ?>"]');
-                    if (csrfField) {
-                        csrfField.value = result.csrf_hash;
-                    }
-                }
+    //         if (result.success) {
+    //             // Update CSRF token
+    //             if (result.csrf_hash) {
+    //                 const csrfField = form.querySelector('input[name="<?= csrf_token() ?>"]');
+    //                 if (csrfField) {
+    //                     csrfField.value = result.csrf_hash;
+    //                 }
+    //             }
 
-                // Show success alert
-                successAlert.innerHTML = '<div class="alert alert-success border-0 bg-success alert-dismissible fade show"><div class="text-white">' + (result.message || 'Artikel berhasil disimpan!') + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-                successAlert.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest'
-                });
+    //             // Show success alert
+    //             successAlert.innerHTML = '<div class="alert alert-success border-0 bg-success alert-dismissible fade show"><div class="text-white">' + (result.message || 'Artikel berhasil disimpan!') + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    //             successAlert.scrollIntoView({
+    //                 behavior: 'smooth',
+    //                 block: 'nearest'
+    //             });
 
-                // Clear old errors
-                form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
-                form.querySelectorAll('.invalid-feedback').forEach(el => el.textContent = '');
+    //             // Clear old errors
+    //             form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+    //             form.querySelectorAll('.invalid-feedback').forEach(el => el.textContent = '');
 
-                // Reset form if creating new
-                if ('<?= $url ?>' === 'insert') {
-                    form.reset();
-                    if (CKEDITOR.instances.editor2) {
-                        CKEDITOR.instances.editor2.setData('');
-                    }
-                }
-            } else {
-                // Handle validation errors
-                if (result.errors) {
-                    Object.keys(result.errors).forEach(field => {
-                        const input = form.querySelector('[name="' + field + '"]');
-                        if (input) {
-                            input.classList.add('is-invalid');
-                            const feedback = input.nextElementSibling;
-                            if (feedback && feedback.classList.contains('invalid-feedback')) {
-                                feedback.textContent = result.errors[field];
-                            }
-                        }
-                    });
-                    successAlert.innerHTML = '<div class="alert alert-danger border-0 bg-danger alert-dismissible fade show"><div class="text-white">Ada kesalahan validasi. Silakan periksa kembali.</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-                } else {
-                    successAlert.innerHTML = '<div class="alert alert-danger border-0 bg-danger alert-dismissible fade show"><div class="text-white">' + (result.message || 'Gagal menyimpan artikel.') + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-                }
-            }
-        } catch (error) {
-            successAlert.innerHTML = '<div class="alert alert-danger border-0 bg-danger alert-dismissible fade show"><div class="text-white">Terjadi kesalahan: ' + error.message + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-        } finally {
-            btn.disabled = false;
-            btn.innerHTML = 'Simpan Artikel';
-        }
-    });
+    //             // Reset form if creating new
+    //             if ('<?= $url ?>' === 'insert') {
+    //                 form.reset();
+    //                 if (CKEDITOR.instances.editor2) {
+    //                     CKEDITOR.instances.editor2.setData('');
+    //                 }
+    //             }
+    //         } else {
+    //             // Handle validation errors
+    //             if (result.errors) {
+    //                 Object.keys(result.errors).forEach(field => {
+    //                     const input = form.querySelector('[name="' + field + '"]');
+    //                     if (input) {
+    //                         input.classList.add('is-invalid');
+    //                         const feedback = input.nextElementSibling;
+    //                         if (feedback && feedback.classList.contains('invalid-feedback')) {
+    //                             feedback.textContent = result.errors[field];
+    //                         }
+    //                     }
+    //                 });
+    //                 successAlert.innerHTML = '<div class="alert alert-danger border-0 bg-danger alert-dismissible fade show"><div class="text-white">Ada kesalahan validasi. Silakan periksa kembali.</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    //             } else {
+    //                 successAlert.innerHTML = '<div class="alert alert-danger border-0 bg-danger alert-dismissible fade show"><div class="text-white">' + (result.message || 'Gagal menyimpan artikel.') + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    //             }
+    //         }
+    //     } catch (error) {
+    //         successAlert.innerHTML = '<div class="alert alert-danger border-0 bg-danger alert-dismissible fade show"><div class="text-white">Terjadi kesalahan: ' + error.message + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    //     } finally {
+    //         btn.disabled = false;
+    //         btn.innerHTML = 'Simpan Artikel';
+    //     }
+    // });
 
     document.getElementById('saveTagBtn').addEventListener('click', async function(e) {
         e.preventDefault();
