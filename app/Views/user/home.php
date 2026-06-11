@@ -30,7 +30,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="single-recent-blog-post">
                             <div class="thumb">
-                                <img class="img-fluid" src="<?= base_url('/') ?>assets/images/<?= esc($row->thumbnail ?: 'default.jpg') ?>" alt="<?= esc($row->judul) ?>" style="height:250px; object-fit:cover">
+                                <img class="img-fluid" src="<?= base_url('/') ?><?= esc($row->thumbnail ?: 'assets/images/default.jpg') ?>" alt="<?= esc($row->judul) ?>" style="height:250px; object-fit:cover">
                             </div>
                             <div class="details">
                                 <a href="<?= base_url('/detailartikel/' . esc($row->id)) ?>">
