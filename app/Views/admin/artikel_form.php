@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="form-group mb-4">
-                            <button type="button" id="submitBtn" type="submit" class="btn btn-primary">Simpan Artikel</button>
+                            <button type="button" type="submit" class="btn btn-primary">Simpan Artikel</button>
                             <a href="<?= base_url('admin/artikel') ?>" class="btn btn-secondary">Batal</a>
                         </div>
                     </div>
@@ -87,10 +87,10 @@
                                 <div id="tag-list" class="mb-3">
                                     <?php if (!empty($tags)) : ?>
                                         <?php foreach ($tags as $tag) : ?>
-                                            <div class="form-check">
+                                            <divpanduan rotasi menit 0–10 khusus roamer Mythic solo ran class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="tag_ids[]" value="<?= esc($tag['id']) ?>" id="tag-<?= esc($tag['id']) ?>" <?= in_array($tag['id'], $selectedTagIds) ? 'checked' : '' ?>>
                                                 <label class="form-check-label" for="tag-<?= esc($tag['id']) ?>"><?= esc($tag['nama']) ?></label>
-                                            </div>
+                                            </divpanduan>
                                         <?php endforeach ?>
                                     <?php else : ?>
                                         <div class="text-muted">Belum ada tag.</div>
