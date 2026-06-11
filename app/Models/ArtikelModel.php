@@ -19,7 +19,7 @@ class ArtikelModel extends Model
         'slug' => 'required|max_length[255]|is_unique[artikel.slug,id,{id}]',
         'isi' => 'required|min_length[10]',
         'status' => 'required|in_list[draft,published]',
-        'published_at' => 'permit_empty|valid_date[Y-m-d H:i:s]|valid_date[Y-m-d\TH:i]',
+        'published_at' => 'permit_empty|valid_date[Y-m-d H:i:s]|valid_date[Y-m-d\TH:i]|valid_date[Y/m/d H:i:s]',
     ];
     protected $validationMessages = [
         'judul' => [
