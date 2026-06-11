@@ -125,11 +125,27 @@ class Artikel extends BaseController
         $status = $this->request->getPost('status') === 'published' ? 'published' : 'draft';
         $published_at = $this->request->getPost('published_at');
 
-        if ($published_at === '') {
+        if ($published_at === '' || $published_at === null) {
             $published_at = null;
+        } else {
+            // Convert HTML5 datetime-local (YYYY-MM-DDTHH:MM) to DB timestamp (YYYY-MM-DD HH:MM:SS)
+            if (strpos($published_at, 'T') !== false) {
+                $dt = \DateTime::createFromFormat('Y-m-d\\TH:i', $published_at);
+                if ($dt !== false) {
+                    $published_at = $dt->format('Y-m-d H:i:s');
+                } else {
+                    $published_at = date('Y-m-d H:i:s', strtotime(str_replace('T', ' ', $published_at)));
+                }
+            } else {
+                $published_at = date('Y-m-d H:i:s', strtotime($published_at));
+            }
         }
-
         $slug = $this->makeUniqueSlug($judul);
+
+        // If status is published and no published_at provided, set to now
+        if ($status === 'published' && ($published_at === null || $published_at === '')) {
+            $published_at = date('Y-m-d H:i:s');
+        }
 
         $data = [
             'judul' => $judul,
@@ -208,16 +224,42 @@ class Artikel extends BaseController
             return redirect()->back()->with('danger', 'Invalid artikel ID!');
         }
 
+        $model = new ArtikelModel();
+        $existing = $model->find($id);
+        $oldStatus = $existing->status ?? null;
+
+        $published_at = $this->request->getPost('published_at');
+
+        if ($published_at === '' || $published_at === null) {
+            $published_at = null;
+        } else {
+            // Convert HTML5 datetime-local (YYYY-MM-DDTHH:MM) to DB timestamp (YYYY-MM-DD HH:MM:SS)
+            if (strpos($published_at, 'T') !== false) {
+                $dt = \DateTime::createFromFormat('Y-m-d\\TH:i', $published_at);
+                if ($dt !== false) {
+                    $published_at = $dt->format('Y-m-d H:i:s');
+                } else {
+                    $published_at = date('Y-m-d H:i:s', strtotime(str_replace('T', ' ', $published_at)));
+                }
+            } else {
+                $published_at = date('Y-m-d H:i:s', strtotime($published_at));
+            }
+        }
+
         $judul = strip_tags(trim($this->request->getPost('judul')));
         $isi = $this->sanitizeHtmlContent($this->request->getPost('isi'));
         $status = $this->request->getPost('status') === 'published' ? 'published' : 'draft';
-        $published_at = $this->request->getPost('published_at');
 
         if ($published_at === '') {
             $published_at = null;
         }
 
         $slug = $this->makeUniqueSlug($judul, $id);
+
+        // If changing from non-published to published and no published_at provided, set to now
+        if ($status === 'published' && $oldStatus !== 'published' && ($published_at === null || $published_at === '')) {
+            $published_at = date('Y-m-d H:i:s');
+        }
 
         $data = [
             'judul' => $judul,
@@ -226,6 +268,9 @@ class Artikel extends BaseController
             'status' => $status,
             'published_at' => $published_at,
         ];
+
+        // Ensure the current id is available for validation placeholder {id}
+        $data['id'] = $id;
 
         $tagIds = $this->request->getPost('tag_ids') ?? [];
         if (!is_array($tagIds)) {
@@ -241,6 +286,7 @@ class Artikel extends BaseController
                     'message' => 'Gagal mengupdate artikel!',
                 ]);
             }
+            dd($model->errors());
             return redirect()->back()->with('errors', $model->errors())
                 ->with('danger', 'Gagal mengupdate artikel!')->withInput();
         }

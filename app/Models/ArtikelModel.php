@@ -15,6 +15,7 @@ class ArtikelModel extends Model
     protected $updatedField = 'updated_at';
 
     protected $validationRules = [
+        'id' => 'permit_empty',
         'judul' => 'required|min_length[5]|max_length[255]',
         'slug' => 'required|max_length[255]|is_unique[artikel.slug,id,{id}]',
         'isi' => 'required|min_length[10]',
