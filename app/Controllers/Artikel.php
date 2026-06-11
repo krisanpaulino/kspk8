@@ -11,7 +11,7 @@ class Artikel extends BaseController
 {
     private function sanitizeHtmlContent($html)
     {
-        $allowedTags = '<p><br><strong><b><em><i><u><h1><h2><h3><h4><h5><h6><ul><ol><li><a><div><span>';
+        $allowedTags = '<p><br><strong><b><em><i><u><h1><h2><h3><h4><h5><h6><ul><ol><li><a><div><span><img>';
         $html = strip_tags($html, $allowedTags);
         $html = preg_replace('/javascript:/i', '', $html);
         $html = preg_replace('/on\w+\s*=/i', '', $html);
