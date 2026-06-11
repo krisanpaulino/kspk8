@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-md-6 form-group mb-4">
                                 <label for="published_at">Tanggal Publikasi</label>
-                                <input type="datetime-local" class="form-control <?= (isset(session('errors')['published_at'])) ? 'is-invalid' : '' ?>" id="published_at" name="published_at" value="<?= old('published_at', isset($artikel->published_at) && $artikel->published_at ? date('Y-m-d\TH:i', strtotime($artikel->published_at)) : '') ?>">
+                                <input type="datetime-local" class="form-control <?= (isset(session('errors')['published_at'])) ? 'is-invalid' : '' ?>" id="published_at" name="published_at" value="<?= esc(old('published_at', isset($artikel->published_at) && $artikel->published_at ? date('Y-m-d\TH:i', strtotime($artikel->published_at)) : '')) ?>">
                                 <div class="invalid-feedback">
                                     <?= esc(session('errors')['published_at'] ?? '') ?>
                                 </div>
