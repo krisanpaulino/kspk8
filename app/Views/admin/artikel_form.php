@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="form-group mb-4">
-                            <button type="button" type="submit" class="btn btn-primary">Simpan Artikel</button>
+                            <button type="submit" class="btn btn-primary">Simpan Artikel</button>
                             <a href="<?= base_url('admin/artikel') ?>" class="btn btn-secondary">Batal</a>
                         </div>
                     </div>
