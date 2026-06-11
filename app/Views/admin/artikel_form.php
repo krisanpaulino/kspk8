@@ -49,27 +49,33 @@
                             <label for="judul"><span class="text-danger">*</span> Judul</label>
                             <input type="text" class="form-control <?= (isset(session('errors')['judul'])) ? 'is-invalid' : '' ?>" id="judul" name="judul" value="<?= esc(old('judul', $artikel->judul ?? '')) ?>">
                             <div class="invalid-feedback">
-                                <?= session('errors')['judul'] ?? '' ?>
+                                <?= esc(session('errors')['judul'] ?? '') ?>
                             </div>
                         </div>
                         <div class="form-group mb-4">
                             <label for="isi"><span class="text-danger">*</span> Isi</label>
                             <textarea rows="15" class="form-control <?= (isset(session('errors')['isi'])) ? 'is-invalid' : '' ?>" id="editor2" name="isi"><?= old('isi', $artikel->isi ?? '') ?></textarea>
                             <div class="invalid-feedback">
-                                <?= session('errors')['isi'] ?? '' ?>
+                                <?= esc(session('errors')['isi'] ?? '') ?>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-group mb-4">
                                 <label for="status">Status</label>
-                                <select class="form-select" id="status" name="status">
+                                <select class="form-select <?= (isset(session('errors')['status'])) ? 'is-invalid' : '' ?>" id="status" name="status">
                                     <option value="draft" <?= old('status', $artikel->status ?? 'draft') === 'draft' ? 'selected' : '' ?>>Draft</option>
                                     <option value="published" <?= old('status', $artikel->status ?? '') === 'published' ? 'selected' : '' ?>>Published</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    <?= esc(session('errors')['status'] ?? '') ?>
+                                </div>
                             </div>
                             <div class="col-md-6 form-group mb-4">
                                 <label for="published_at">Tanggal Publikasi</label>
-                                <input type="datetime-local" class="form-control" id="published_at" name="published_at" value="<?= old('published_at', isset($artikel->published_at) && $artikel->published_at ? date('Y-m-d\TH:i', strtotime($artikel->published_at)) : '') ?>">
+                                <input type="datetime-local" class="form-control <?= (isset(session('errors')['published_at'])) ? 'is-invalid' : '' ?>" id="published_at" name="published_at" value="<?= old('published_at', isset($artikel->published_at) && $artikel->published_at ? date('Y-m-d\TH:i', strtotime($artikel->published_at)) : '') ?>">
+                                <div class="invalid-feedback">
+                                    <?= esc(session('errors')['published_at'] ?? '') ?>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group mb-4">
@@ -87,10 +93,10 @@
                                 <div id="tag-list" class="mb-3">
                                     <?php if (!empty($tags)) : ?>
                                         <?php foreach ($tags as $tag) : ?>
-                                            <divpanduan rotasi menit 0–10 khusus roamer Mythic solo ran class="form-check">
+                                            <div class="form-check mb-1">
                                                 <input class="form-check-input" type="checkbox" name="tag_ids[]" value="<?= esc($tag['id']) ?>" id="tag-<?= esc($tag['id']) ?>" <?= in_array($tag['id'], $selectedTagIds) ? 'checked' : '' ?>>
                                                 <label class="form-check-label" for="tag-<?= esc($tag['id']) ?>"><?= esc($tag['nama']) ?></label>
-                                            </divpanduan>
+                                            </div>
                                         <?php endforeach ?>
                                     <?php else : ?>
                                         <div class="text-muted">Belum ada tag.</div>
