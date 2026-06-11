@@ -13,11 +13,37 @@ class Artikel extends BaseController
     {
         $allowedTags = '<p><br><strong><b><em><i><u><h1><h2><h3><h4><h5><h6><ul><ol><li><a><div><span><img>';
         $html = strip_tags($html, $allowedTags);
+
+        // Remove javascript: protocol anywhere
         $html = preg_replace('/javascript:/i', '', $html);
+
+        // Remove inline event handlers (onclick, onerror, etc.)
         $html = preg_replace('/on\w+\s*=/i', '', $html);
-        $html = preg_replace('/style\s*=/i', '', $html);
+
+        // Sanitize style attributes but allow them
+        $html = preg_replace_callback('/(<[a-z][^>]*?)\sstyle=(["\'])(.*?)\2/si', function ($m) {
+            $style = $m[3];
+            // Remove dangerous constructs
+            $style = preg_replace('/(expression\s*\(|javascript\s*:|vbscript\s*:|behavior\s*:)/i', '', $style);
+            // Sanitize url(...) contents
+            $style = preg_replace_callback('/url\(([^)]*)\)/i', function ($u) {
+                $inner = $u[1];
+                if (preg_match('/javascript\s*:/i', $inner)) {
+                    return 'url()';
+                }
+                return 'url(' . $inner . ')';
+            }, $style);
+            // Remove any HTML tags inside style value
+            $style = strip_tags($style);
+            // Normalize whitespace
+            $style = preg_replace('/\s+/', ' ', trim($style));
+            return $m[1] . ' style="' . $style . '"';
+        }, $html);
+
+        // Remove script and iframe blocks entirely
         $html = preg_replace('/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/mi', '', $html);
         $html = preg_replace('/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/mi', '', $html);
+
         return $html;
     }
 
