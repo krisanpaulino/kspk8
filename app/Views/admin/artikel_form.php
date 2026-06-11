@@ -137,13 +137,13 @@
 </div>
 <?= $this->endSection(); ?>
 <?= $this->section('scripts'); ?>
+
 <script <?= csp_script_nonce() ?>>
     CKEDITOR.replace('editor2', {
         extraPlugins: ['justify', 'btgrid'],
         versionCheck: false
     });
-</script>
-<script>
+
     // Handle form submission via AJAX
     // document.getElementById('submitBtn').addEventListener('click', async function() {
     //     const btn = this;
