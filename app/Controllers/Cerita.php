@@ -228,7 +228,7 @@ class Cerita extends BaseController
     private function sanitizeHtmlContent($html)
     {
         // Define allowed tags for cerita content
-        $allowedTags = '<p><br><strong><b><em><i><u><h1><h2><h3><h4><h5><h6><ul><ol><li><a><div><span>';
+        $allowedTags = '<p><br><strong><b><em><i><u><h1><h2><h3><h4><h5><h6><ul><ol><li><a><div><span><img>';
 
         // Strip dangerous tags first
         $html = strip_tags($html, $allowedTags);

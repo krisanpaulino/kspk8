@@ -21,6 +21,15 @@ class Artikel extends BaseController
         return $html;
     }
 
+    private function extractFirstImageUrl($html)
+    {
+        // Extract the first <img> tag's src attribute from HTML content
+        if (preg_match('/<img[^>]+src=["\']?([^"\'>\s]+)["\']?/i', $html, $matches)) {
+            return $matches[1];
+        }
+        return null;
+    }
+
     private function makeUniqueSlug(string $slug, int $excludeId = null): string
     {
         $baseSlug = trim(preg_replace('/[^a-z0-9]+/', '-', strtolower($slug)), '-');
@@ -147,12 +156,16 @@ class Artikel extends BaseController
             $published_at = date('Y-m-d H:i:s');
         }
 
+        // Extract thumbnail from first image in content
+        $thumbnail = $this->extractFirstImageUrl($isi);
+
         $data = [
             'judul' => $judul,
             'slug' => $slug,
             'isi' => $isi,
             'status' => $status,
             'published_at' => $published_at,
+            'thumbnail' => $thumbnail,
             'views' => 0,
         ];
 
@@ -261,12 +274,16 @@ class Artikel extends BaseController
             $published_at = date('Y-m-d H:i:s');
         }
 
+        // Extract thumbnail from first image in content
+        $thumbnail = $this->extractFirstImageUrl($isi);
+
         $data = [
             'judul' => $judul,
             'slug' => $slug,
             'isi' => $isi,
             'status' => $status,
             'published_at' => $published_at,
+            'thumbnail' => $thumbnail,
         ];
 
         // Ensure the current id is available for validation placeholder {id}
