@@ -33,12 +33,12 @@
                                 <img class="img-fluid" src="<?= base_url('/') ?><?= esc($row->thumbnail ?: 'assets/images/default.jpg') ?>" alt="<?= esc($row->judul) ?>" style="height:250px; object-fit:cover">
                             </div>
                             <div class="details">
-                                <a href="<?= base_url('/detailartikel/' . esc($row->id)) ?>">
+                                <a href="<?= base_url('/artikel/' . esc($row->id)) ?>">
                                     <h4 class="sec_h4"><?= esc($row->judul) ?></h4>
                                 </a>
                                 <p><?= esc(substr(strip_tags(preg_replace('/<img[^>]+>/i', '', sanitize_html_content($row->isi))), 0, 110)) ?>...</p>
                                 <h6 class="date title_color"><?= esc(date('d-M-Y', strtotime($row->published_at ?? $row->created_at))) ?></h6>
-                                <a class="button_hover" href="<?= base_url('/detailartikel/' . esc($row->id)) ?>">Read More</a>
+                                <a class="button_hover" href="<?= base_url('/artikel/' . esc($row->id)) ?>">Read More</a>
                             </div>
                         </div>
                     </div>
