@@ -36,7 +36,7 @@ $routes->get('/auth', 'Auth::index');
 $routes->post('login', 'Auth::login');
 $routes->post('auth/logout', 'Auth::logout');
 
-$routes->group('admin', function ($routes) {
+$routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('/', 'Dashboard::admin');
     $routes->get('alumni', 'Alumni::index');
     $routes->get('alumni/(:num)', 'Alumni::detail/$1');
