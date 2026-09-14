@@ -7,19 +7,29 @@ use App\Models\AlumniModel;
 use App\Models\ProdiModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use Exception;
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Alumni extends BaseController
 {
     public function index()
     {
-        $model = new AlumniModel();
         $mprodi = new ProdiModel();
         $data = [
             'title' => 'Alumni',
             'prodi' => $mprodi->findAll(),
-            'alumni' => $model->findAlumni()
         ];
         return view('admin/alumni_index', $data);
+    }
+
+    public function datatable()
+    {
+        $model = new AlumniModel();
+
+        return $this->response->setJSON($model->getDatatable($this->request->getGet()));
     }
     public function detail($alumni_id)
     {
@@ -70,6 +80,7 @@ class Alumni extends BaseController
         }
 
         if ($model->insert($data)) {
+            $model->refreshStatsCache();
             return redirect()->to('admin/alumni')
                 ->with('success', 'Data alumni berhasil disimpan!');
         } else {
@@ -111,6 +122,7 @@ class Alumni extends BaseController
         }
 
         if ($model->update($alumni_id, $data)) {
+            $model->refreshStatsCache();
             return redirect()->back()->with('success', 'Data Alumni Berhasil Disimpan!');
         }
         return redirect()->back()
@@ -140,10 +152,116 @@ class Alumni extends BaseController
         $deleted = $model->delete($alumni_id);
 
         if ($deleted) {
+            $model->refreshStatsCache();
             return redirect()->back()->with('success', 'Data alumni dihapus!');
         } else {
             return redirect()->back()->with('danger', 'Gagal menghapus data alumni!');
         }
+    }
+
+    public function downloadTemplate()
+    {
+        $prodiModel = new ProdiModel();
+        $prodiList = $prodiModel->orderBy('prodi_nama', 'ASC')->findAll();
+
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Data Alumni');
+        $sheet->fromArray([
+            'NIM',
+            'Kode Prodi',
+            'Tahun Lulus',
+            'Nama',
+            'Tempat Lahir (opsional)',
+            'Jenis Kelamin (L/P)',
+            'No HP',
+            'Email',
+        ], null, 'A1');
+
+        $headerStyle = [
+            'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['rgb' => '0D6EFD'],
+            ],
+            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+        ];
+        $sheet->getStyle('A1:H1')->applyFromArray($headerStyle);
+        $sheet->freezePane('A2');
+
+        foreach (range('A', 'H') as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+
+        $jkValidation = $sheet->getDataValidation('F2:F1000');
+        $jkValidation->setType(DataValidation::TYPE_LIST);
+        $jkValidation->setAllowBlank(true);
+        $jkValidation->setShowDropDown(true);
+        $jkValidation->setFormula1('"L,P"');
+        $jkValidation->setShowErrorMessage(true);
+        $jkValidation->setErrorTitle('Nilai tidak valid');
+        $jkValidation->setError('Jenis kelamin harus L atau P.');
+
+        $prodiSheet = $spreadsheet->createSheet();
+        $prodiSheet->setTitle('Daftar Prodi');
+        $prodiSheet->fromArray(['Kode Prodi', 'Nama Prodi'], null, 'A1');
+        $prodiSheet->getStyle('A1:B1')->applyFromArray($headerStyle);
+        $prodiSheet->freezePane('A2');
+
+        $prodiRow = 2;
+        foreach ($prodiList as $prodi) {
+            $prodiSheet->setCellValue('A' . $prodiRow, $prodi->prodi_id);
+            $prodiSheet->setCellValue('B' . $prodiRow, $prodi->prodi_nama);
+            $prodiRow++;
+        }
+
+        $prodiSheet->getColumnDimension('A')->setAutoSize(true);
+        $prodiSheet->getColumnDimension('B')->setAutoSize(true);
+
+        if ($prodiRow > 2) {
+            $lastProdiRow = $prodiRow - 1;
+            $prodiValidation = $sheet->getDataValidation('B2:B1000');
+            $prodiValidation->setType(DataValidation::TYPE_LIST);
+            $prodiValidation->setAllowBlank(false);
+            $prodiValidation->setShowDropDown(true);
+            $prodiValidation->setFormula1('\'Daftar Prodi\'!$A$2:$A$' . $lastProdiRow);
+            $prodiValidation->setShowErrorMessage(true);
+            $prodiValidation->setErrorTitle('Kode Prodi tidak valid');
+            $prodiValidation->setError('Pilih kode prodi dari sheet Daftar Prodi.');
+        }
+
+        $guideSheet = $spreadsheet->createSheet();
+        $guideSheet->setTitle('Petunjuk');
+        $guideSheet->fromArray([
+            ['Petunjuk pengisian template alumni'],
+            [''],
+            ['1. Isi data hanya pada sheet Data Alumni, mulai dari baris ke-2.'],
+            ['2. Jangan menghapus baris header dan jangan mengubah urutan kolom.'],
+            ['3. Kolom wajib: NIM, Kode Prodi, Tahun Lulus, dan Nama.'],
+            ['4. Kode Prodi harus sesuai daftar pada sheet Daftar Prodi.'],
+            ['5. Jenis Kelamin diisi L (Laki-laki) atau P (Perempuan).'],
+            ['6. Kolom Tempat Lahir bersifat opsional dan tidak disimpan ke sistem.'],
+            ['7. NIM yang sudah ada di sistem akan dilewati saat upload.'],
+            ['8. Contoh baris: 20210001 | 010101 | 2024 | Nama Alumni |  | L | 081234567890 | alumni@email.com'],
+        ], null, 'A1');
+        $guideSheet->getStyle('A1')->getFont()->setBold(true);
+        $guideSheet->getColumnDimension('A')->setWidth(110);
+
+        $spreadsheet->setActiveSheetIndex(0);
+
+        $filename = 'template_alumni.xlsx';
+        $writer = new Xlsx($spreadsheet);
+
+        ob_start();
+        $writer->save('php://output');
+        $excelOutput = ob_get_clean();
+
+        return $this->response
+            ->setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+            ->setHeader('Cache-Control', 'max-age=0')
+            ->setBody($excelOutput);
     }
 
     public function uploadExcel()
@@ -218,6 +336,10 @@ class Alumni extends BaseController
                         $errorCount++;
                     }
                 }
+            }
+
+            if ($successCount > 0) {
+                $model->refreshStatsCache();
             }
 
             $message = "Upload selesai! Berhasil: $successCount, Error: $errorCount";

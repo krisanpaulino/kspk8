@@ -28,9 +28,7 @@ class Home extends BaseController
         $data['title'] = 'KSPK UNWIRA - Home';
         $data['berita'] = $beritaModel->orderBy('berita_tanggal', 'DESC')->findAll(3);
         $data['agenda'] = $agendaModel->orderBy('agenda_id', 'DESC')->findAll(3);
-        $data['alumni'] = $alumniModel->jumlah();
-        $data['chart_alumni'] = $alumniModel->countTahun(5);
-        $data['tahunalumni'] = $alumniModel->countTahun();
+        $data = array_merge($data, $alumniModel->getCachedStats());
         $data['artikel_latest'] = $artikelModel
             ->where('status', 'published')
             ->orderBy('published_at', 'DESC')

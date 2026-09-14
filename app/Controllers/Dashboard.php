@@ -17,12 +17,10 @@ class Dashboard extends BaseController
         $karierModel = new KarierModel();
         $data = [
             'title' => 'Admin Dashboard',
-            'alumni' => $model->jumlah(),
-            'chart_alumni' => $model->countTahun(5),
-            'tahunalumni' => $model->countTahun(),
             'agenda' => $agendaModel->limit(5)->find(),
             'karier' => $karierModel->limit(5)->find()
         ];
+        $data = array_merge($data, $model->getCachedStats());
         return view('admin/dashboard', $data);
     }
 }

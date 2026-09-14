@@ -119,9 +119,18 @@
                         <form action="<?= base_url('admin/alumni/upload') ?>" method="post" enctype="multipart/form-data">
                             <?= csrf_field() ?>
                             <div class="modal-body">
+                                <div class="alert alert-info">
+                                    Download template Excel terlebih dahulu, isi datanya, lalu unggah kembali file tersebut.
+                                    <div class="mt-2">
+                                        <a href="<?= base_url('admin/alumni/template') ?>" class="btn btn-success btn-sm">
+                                            Download Template
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="form-group mb-4">
                                     <label for="file">File Excel</label>
-                                    <input type="file" class="form-control <?= (isset(session('errors')['file'])) ? 'is-invalid' : '' ?>" id="file" name="file" value="<?= old('file') ?>">
+                                    <input type="file" class="form-control <?= (isset(session('errors')['file'])) ? 'is-invalid' : '' ?>" id="file" name="file" accept=".xls,.xlsx">
+                                    <div class="form-text">Format file: XLS atau XLSX. Maksimal 5MB.</div>
                                     <div class="invalid-feedback">
                                         <?php if (isset(session('errors')['file'])) : ?>
                                             <?= session('errors')['file'] ?>
@@ -158,7 +167,7 @@
             <h5 class="card-title">Data Alumni Unwira</h5>
             <hr />
             <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <table id="alumniTable" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -169,18 +178,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($alumni as $row) : ?>
-                            <tr>
-                                <td><?= $row->alumni_nama ?></td>
-                                <td><?= $row->alumni_nim ?></td>
-                                <td><?= $row->alumni_jeniskelamin ?></td>
-                                <td><?= $row->alumni_tahunlulus ?></td>
-                                <td>
-                                    <a href="<?= base_url('admin/alumni/' . $row->alumni_id) ?>" class="badge bg-info">Detail</a>
-                                    <a href="javascript;" data-bs-toggle="modal" data-bs-target="#hapus" data-id="<?= $row->alumni_id ?>" class="badge bg-danger">Hapus</a>
-                                </td>
-                            </tr>
-                        <?php endforeach ?>
                     </tbody>
                 </table>
             </div>
@@ -211,11 +208,47 @@
 <?= $this->endSection(); ?>
 <?= $this->section('scripts'); ?>
 <script>
+    $(document).ready(function() {
+        $('#alumniTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '<?= base_url('admin/alumni/datatable') ?>',
+                type: 'GET'
+            },
+            columns: [{
+                    data: 'alumni_nama'
+                },
+                {
+                    data: 'alumni_nim'
+                },
+                {
+                    data: 'alumni_jeniskelamin'
+                },
+                {
+                    data: 'alumni_tahunlulus'
+                },
+                {
+                    data: 'alumni_id',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data) {
+                        var id = parseInt(data, 10);
+                        if (!id) {
+                            return '';
+                        }
+                        var detailUrl = '<?= base_url('admin/alumni') ?>/' + id;
+                        return '<a href="' + detailUrl + '" class="badge bg-info">Detail</a> ' +
+                            '<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#hapus" data-id="' + id + '" class="badge bg-danger">Hapus</a>';
+                    }
+                }
+            ]
+        });
+    });
+
     $('#hapus').on('show.bs.modal', function(event) {
-        console.log('Here');
         var kode = $(event.relatedTarget).data('id');
         $(this).find('#kodeitem').attr("value", kode);
-        // $(this).find('#namaitem').attr("value", nama);
     });
 </script>
 <?= $this->endSection(); ?>

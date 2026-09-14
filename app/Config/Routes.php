@@ -39,6 +39,8 @@ $routes->post('auth/logout', 'Auth::logout');
 $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('/', 'Dashboard::admin');
     $routes->get('alumni', 'Alumni::index');
+    $routes->get('alumni/datatable', 'Alumni::datatable');
+    $routes->get('alumni/template', 'Alumni::downloadTemplate');
     $routes->get('alumni/(:num)', 'Alumni::detail/$1');
     $routes->post('alumni/upload', 'Alumni::uploadExcel');
     $routes->post('alumni/insert', 'Alumni::insert');
