@@ -194,7 +194,7 @@ class Alumni extends BaseController
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
-        $jkValidation = $sheet->getDataValidation('F2:F1000');
+        $jkValidation = new DataValidation();
         $jkValidation->setType(DataValidation::TYPE_LIST);
         $jkValidation->setAllowBlank(true);
         $jkValidation->setShowDropDown(true);
@@ -202,6 +202,7 @@ class Alumni extends BaseController
         $jkValidation->setShowErrorMessage(true);
         $jkValidation->setErrorTitle('Nilai tidak valid');
         $jkValidation->setError('Jenis kelamin harus L atau P.');
+        $sheet->setDataValidation('F2:F1000', $jkValidation);
 
         $prodiSheet = $spreadsheet->createSheet();
         $prodiSheet->setTitle('Daftar Prodi');
@@ -221,7 +222,7 @@ class Alumni extends BaseController
 
         if ($prodiRow > 2) {
             $lastProdiRow = $prodiRow - 1;
-            $prodiValidation = $sheet->getDataValidation('B2:B1000');
+            $prodiValidation = new DataValidation();
             $prodiValidation->setType(DataValidation::TYPE_LIST);
             $prodiValidation->setAllowBlank(false);
             $prodiValidation->setShowDropDown(true);
@@ -229,6 +230,7 @@ class Alumni extends BaseController
             $prodiValidation->setShowErrorMessage(true);
             $prodiValidation->setErrorTitle('Kode Prodi tidak valid');
             $prodiValidation->setError('Pilih kode prodi dari sheet Daftar Prodi.');
+            $sheet->setDataValidation('B2:B1000', $prodiValidation);
         }
 
         $guideSheet = $spreadsheet->createSheet();
