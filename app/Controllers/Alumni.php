@@ -240,10 +240,10 @@ class Alumni extends BaseController
             [''],
             ['1. Isi data hanya pada sheet Data Alumni, mulai dari baris ke-2.'],
             ['2. Jangan menghapus baris header dan jangan mengubah urutan kolom.'],
-            ['3. Kolom wajib: NIM, Kode Prodi, Tahun Lulus, dan Nama.'],
+            ['3. Kolom wajib: NIM, Kode Prodi, dan Nama. Kolom lain boleh dikosongkan.'],
             ['4. Kode Prodi harus sesuai daftar pada sheet Daftar Prodi.'],
-            ['5. Jenis Kelamin diisi L (Laki-laki) atau P (Perempuan).'],
-            ['6. Kolom Tempat Lahir bersifat opsional dan tidak disimpan ke sistem.'],
+            ['5. Jenis Kelamin opsional, isi L (Laki-laki) atau P (Perempuan) jika diisi.'],
+            ['6. Kolom Tempat Lahir, Tahun Lulus, No HP, dan Email bersifat opsional.'],
             ['7. NIM yang sudah ada di sistem akan dilewati saat upload.'],
             ['8. Contoh baris: 20210001 | 010101 | 2024 | Nama Alumni |  | L | 081234567890 | alumni@email.com'],
         ], null, 'A1');
@@ -297,6 +297,7 @@ class Alumni extends BaseController
             $data = $spreadsheet->getActiveSheet()->toArray();
 
             $model = new AlumniModel();
+            $model->skipValidation(true);
             $successCount = 0;
             $errorCount = 0;
 
@@ -305,20 +306,26 @@ class Alumni extends BaseController
                     continue; // Skip header row
                 }
 
-                // Validate and sanitize data
-                $alumni_nim = preg_replace('/[^a-zA-Z0-9]/', '', trim($row[0] ?? ''));
-                $prodi_id = strip_tags(trim($row[1] ?? ''));
-                $alumni_tahunlulus = (int) ($row[2] ?? 0);
-                $alumni_nama = strip_tags(trim($row[3] ?? ''));
-                $jenis_kelamin = in_array($row[5] ?? '', ['L', 'P']) ? $row[5] : '-';
-                $alumni_telepon = preg_replace('/[^0-9+\-\s]/', '', trim($row[6] ?? '-'));
-                $alumni_email = filter_var(trim($row[7] ?? '-'), FILTER_SANITIZE_EMAIL);
+                $alumni_nim = preg_replace('/[^a-zA-Z0-9]/', '', trim((string) ($row[0] ?? '')));
+                $prodi_id = strip_tags(trim((string) ($row[1] ?? '')));
+                $alumni_nama = strip_tags(trim((string) ($row[3] ?? '')));
 
-                // Skip row if essential data is missing
-                if (empty($alumni_nim) || empty($alumni_nama) || $alumni_tahunlulus < 1900) {
+                if ($alumni_nim === '' && $prodi_id === '' && $alumni_nama === '') {
+                    continue;
+                }
+
+                if ($alumni_nim === '' || $prodi_id === '' || $alumni_nama === '') {
                     $errorCount++;
                     continue;
                 }
+
+                $tahunRaw = trim((string) ($row[2] ?? ''));
+                $alumni_tahunlulus = ($tahunRaw !== '' && (int) $tahunRaw >= 1900) ? (int) $tahunRaw : null;
+                $jenis_kelamin = in_array($row[5] ?? '', ['L', 'P'], true) ? $row[5] : '-';
+                $teleponRaw = preg_replace('/[^0-9+\-\s]/', '', trim((string) ($row[6] ?? '')));
+                $alumni_telepon = $teleponRaw !== '' ? $teleponRaw : '-';
+                $emailRaw = filter_var(trim((string) ($row[7] ?? '')), FILTER_SANITIZE_EMAIL);
+                $alumni_email = $emailRaw !== '' ? $emailRaw : '-';
 
                 $insert = [
                     'alumni_nim' => $alumni_nim,
