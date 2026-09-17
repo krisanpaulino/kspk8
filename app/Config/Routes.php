@@ -46,6 +46,7 @@ $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->post('alumni/insert', 'Alumni::insert');
     $routes->post('alumni/update', 'Alumni::update');
     $routes->post('alumni/delete', 'Alumni::delete');
+    $routes->post('alumni/delete-filtered', 'Alumni::deleteFiltered');
 
     $routes->get('karier', 'Karier::index');
     $routes->get('karier/(:num)', 'Karier::detail/$1');

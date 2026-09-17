@@ -90,7 +90,9 @@ class AlumniModel extends Model
     function findTahun()
     {
         $this->select('alumni_tahunlulus');
+        $this->where('alumni_tahunlulus >', 0);
         $this->groupBy('alumni_tahunlulus');
+        $this->orderBy('alumni_tahunlulus', 'DESC');
         $result = $this->find();
         return $result;
     }
@@ -164,14 +166,56 @@ class AlumniModel extends Model
         return self::CACHE_KEY_COUNT_TAHUN . '_' . $effectiveLimit;
     }
 
+    public function parseFilters(array $params): array
+    {
+        $prodiId = preg_replace('/[^a-zA-Z0-9]/', '', trim((string) ($params['prodi_id'] ?? '')));
+        $tahun = (int) ($params['tahunlulus'] ?? 0);
+        if ($tahun < 1900 || $tahun > 2100) {
+            $tahun = 0;
+        }
+
+        return [
+            'prodi_id'    => $prodiId,
+            'tahunlulus'  => $tahun,
+        ];
+    }
+
+    public function countByFilter(array $filters): int
+    {
+        $builder = $this->db->table($this->table);
+        $this->applyListFilters($builder, $filters);
+
+        return $builder->countAllResults();
+    }
+
+    public function deleteByFilter(array $filters): int
+    {
+        $filters = $this->parseFilters($filters);
+        if ($filters['prodi_id'] === '' && $filters['tahunlulus'] === 0) {
+            return 0;
+        }
+
+        $count = $this->countByFilter($filters);
+        if ($count === 0) {
+            return 0;
+        }
+
+        $builder = $this->db->table($this->table);
+        $this->applyListFilters($builder, $filters);
+        $builder->delete();
+
+        return $count;
+    }
+
     public function getDatatable(array $params): array
     {
         $columns = [
-            0 => 'alumni_nama',
-            1 => 'alumni_nim',
-            2 => 'alumni_jeniskelamin',
-            3 => 'alumni_tahunlulus',
-            4 => 'alumni_id',
+            0 => 'alumni.alumni_nama',
+            1 => 'alumni.alumni_nim',
+            2 => 'prodi.prodi_nama',
+            3 => 'alumni.alumni_jeniskelamin',
+            4 => 'alumni.alumni_tahunlulus',
+            5 => 'alumni.alumni_id',
         ];
 
         $draw   = (int) ($params['draw'] ?? 0);
@@ -186,24 +230,31 @@ class AlumniModel extends Model
             $search = mb_substr($search, 0, 100);
         }
 
+        $filters    = $this->parseFilters($params);
         $orderCol   = (int) ($params['order'][0]['column'] ?? 0);
-        $orderField = $columns[$orderCol] ?? 'alumni_nama';
+        $orderField = $columns[$orderCol] ?? 'alumni.alumni_nama';
         $orderDir   = strtolower((string) ($params['order'][0]['dir'] ?? 'asc')) === 'desc' ? 'DESC' : 'ASC';
 
         $recordsTotal = $this->db->table($this->table)->countAllResults();
 
-        if ($search === '') {
+        $filteredBuilder = $this->db->table($this->table);
+        $filteredBuilder->join('prodi', 'prodi.prodi_id = alumni.prodi_id', 'left');
+        $this->applyListFilters($filteredBuilder, $filters, true);
+        $this->applyDatatableSearch($filteredBuilder, $search);
+
+        $hasFilter = $filters['prodi_id'] !== '' || $filters['tahunlulus'] !== 0;
+        if ($search === '' && ! $hasFilter) {
             $recordsFiltered = $recordsTotal;
         } else {
-            $filteredBuilder = $this->db->table($this->table);
-            $this->applyDatatableSearch($filteredBuilder, $search);
             $recordsFiltered = $filteredBuilder->countAllResults();
         }
 
         $dataBuilder = $this->db->table($this->table);
+        $dataBuilder->join('prodi', 'prodi.prodi_id = alumni.prodi_id', 'left');
+        $this->applyListFilters($dataBuilder, $filters, true);
         $this->applyDatatableSearch($dataBuilder, $search);
         $rows = $dataBuilder
-            ->select('alumni_id, alumni_nama, alumni_nim, alumni_jeniskelamin, alumni_tahunlulus')
+            ->select('alumni.alumni_id, alumni.alumni_nama, alumni.alumni_nim, alumni.alumni_jeniskelamin, alumni.alumni_tahunlulus, prodi.prodi_nama')
             ->orderBy($orderField, $orderDir)
             ->limit($length, $start)
             ->get()
@@ -215,8 +266,9 @@ class AlumniModel extends Model
                 'alumni_id'           => (int) $row->alumni_id,
                 'alumni_nama'         => esc($row->alumni_nama),
                 'alumni_nim'          => esc($row->alumni_nim),
+                'prodi_nama'          => esc($row->prodi_nama ?? '-'),
                 'alumni_jeniskelamin' => esc($row->alumni_jeniskelamin ?? '-'),
-                'alumni_tahunlulus'   => esc($row->alumni_tahunlulus),
+                'alumni_tahunlulus'   => esc($row->alumni_tahunlulus ?? '-'),
             ];
         }
 
@@ -228,6 +280,21 @@ class AlumniModel extends Model
         ];
     }
 
+    private function applyListFilters($builder, array $filters, bool $prefixed = false)
+    {
+        $prodiCol = $prefixed ? 'alumni.prodi_id' : 'prodi_id';
+        $tahunCol = $prefixed ? 'alumni.alumni_tahunlulus' : 'alumni_tahunlulus';
+
+        if (($filters['prodi_id'] ?? '') !== '') {
+            $builder->where($prodiCol, $filters['prodi_id']);
+        }
+        if ((int) ($filters['tahunlulus'] ?? 0) >= 1900) {
+            $builder->where($tahunCol, (int) $filters['tahunlulus']);
+        }
+
+        return $builder;
+    }
+
     private function applyDatatableSearch($builder, string $search)
     {
         if ($search === '') {
@@ -235,10 +302,11 @@ class AlumniModel extends Model
         }
 
         return $builder->groupStart()
-            ->like('alumni_nama', $search)
-            ->orLike('alumni_nim', $search)
-            ->orLike('alumni_jeniskelamin', $search)
-            ->orLike('alumni_tahunlulus', $search)
+            ->like('alumni.alumni_nama', $search)
+            ->orLike('alumni.alumni_nim', $search)
+            ->orLike('alumni.alumni_jeniskelamin', $search)
+            ->orLike('alumni.alumni_tahunlulus', $search)
+            ->orLike('prodi.prodi_nama', $search)
             ->groupEnd();
     }
 }

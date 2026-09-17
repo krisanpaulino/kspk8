@@ -18,9 +18,11 @@ class Alumni extends BaseController
     public function index()
     {
         $mprodi = new ProdiModel();
+        $model = new AlumniModel();
         $data = [
             'title' => 'Alumni',
-            'prodi' => $mprodi->findAll(),
+            'prodi' => $mprodi->orderBy('prodi_nama', 'ASC')->findAll(),
+            'tahun' => $model->findTahun(),
         ];
         return view('admin/alumni_index', $data);
     }
@@ -157,6 +159,24 @@ class Alumni extends BaseController
         } else {
             return redirect()->back()->with('danger', 'Gagal menghapus data alumni!');
         }
+    }
+
+    public function deleteFiltered()
+    {
+        $model = new AlumniModel();
+        $filters = $model->parseFilters($this->request->getPost());
+
+        if ($filters['prodi_id'] === '' && $filters['tahunlulus'] === 0) {
+            return redirect()->back()->with('danger', 'Pilih filter prodi atau tahun lulus sebelum menghapus data.');
+        }
+
+        $deleted = $model->deleteByFilter($filters);
+        if ($deleted > 0) {
+            $model->refreshStatsCache();
+            return redirect()->back()->with('success', $deleted . ' data alumni sesuai filter berhasil dihapus.');
+        }
+
+        return redirect()->back()->with('danger', 'Tidak ada data alumni yang sesuai filter.');
     }
 
     public function downloadTemplate()
@@ -298,14 +318,24 @@ class Alumni extends BaseController
 
             $model = new AlumniModel();
             $model->skipValidation(true);
+            $prodiModel = new ProdiModel();
+            $prodiIds = [];
+            foreach ($prodiModel->findAll() as $prodi) {
+                $prodiIds[$prodi->prodi_id] = true;
+            }
+
             $successCount = 0;
             $errorCount = 0;
+            $skipCount = 0;
+            $notes = [];
+            $maxNotes = 50;
 
             foreach ($data as $x => $row) {
                 if ($x == 0) {
                     continue; // Skip header row
                 }
 
+                $excelRow = $x + 1;
                 $alumni_nim = preg_replace('/[^a-zA-Z0-9]/', '', trim((string) ($row[0] ?? '')));
                 $prodi_id = strip_tags(trim((string) ($row[1] ?? '')));
                 $alumni_nama = strip_tags(trim((string) ($row[3] ?? '')));
@@ -314,8 +344,26 @@ class Alumni extends BaseController
                     continue;
                 }
 
-                if ($alumni_nim === '' || $prodi_id === '' || $alumni_nama === '') {
+                $missing = [];
+                if ($alumni_nim === '') {
+                    $missing[] = 'NIM';
+                }
+                if ($prodi_id === '') {
+                    $missing[] = 'Kode Prodi';
+                }
+                if ($alumni_nama === '') {
+                    $missing[] = 'Nama';
+                }
+
+                if ($missing !== []) {
                     $errorCount++;
+                    $this->pushUploadNote($notes, $maxNotes, 'Baris ' . $excelRow . ': kolom wajib kosong (' . implode(', ', $missing) . ').');
+                    continue;
+                }
+
+                if (! isset($prodiIds[$prodi_id])) {
+                    $errorCount++;
+                    $this->pushUploadNote($notes, $maxNotes, 'Baris ' . $excelRow . ': kode prodi "' . $prodi_id . '" tidak ditemukan.');
                     continue;
                 }
 
@@ -337,13 +385,18 @@ class Alumni extends BaseController
                     'alumni_email' => $alumni_email,
                 ];
 
-                // Check if alumni already exists
-                if ($model->findByNim($insert['alumni_nim']) == null) {
-                    if ($model->insert($insert)) {
-                        $successCount++;
-                    } else {
-                        $errorCount++;
-                    }
+                if ($model->findByNim($insert['alumni_nim']) != null) {
+                    $skipCount++;
+                    $this->pushUploadNote($notes, $maxNotes, 'Baris ' . $excelRow . ': NIM ' . $alumni_nim . ' sudah terdaftar, dilewati.');
+                    continue;
+                }
+
+                if ($model->insert($insert)) {
+                    $successCount++;
+                } else {
+                    $errorCount++;
+                    $reason = implode(', ', $model->errors() ?: ['gagal menyimpan']);
+                    $this->pushUploadNote($notes, $maxNotes, 'Baris ' . $excelRow . ': gagal menyimpan NIM ' . $alumni_nim . ' (' . $reason . ').');
                 }
             }
 
@@ -351,14 +404,31 @@ class Alumni extends BaseController
                 $model->refreshStatsCache();
             }
 
-            $message = "Upload selesai! Berhasil: $successCount, Error: $errorCount";
-            return redirect()->back()->with('success', $message);
+            $hiddenNotes = max(0, ($errorCount + $skipCount) - count($notes));
+            if ($hiddenNotes > 0) {
+                $notes[] = 'Dan ' . $hiddenNotes . ' catatan lainnya tidak ditampilkan.';
+            }
+
+            $message = "Upload selesai! Berhasil: $successCount, Gagal: $errorCount, Dilewati: $skipCount";
+            $redirect = redirect()->back()->with('success', $message);
+            if ($notes !== []) {
+                $redirect = $redirect->with('upload_notes', $notes);
+            }
+
+            return $redirect;
         } catch (Exception $e) {
             log_security_event('Excel upload failed', [
                 'error' => $e->getMessage(),
                 'file' => $file_excel->getName()
             ]);
             return redirect()->back()->with('danger', 'Gagal memproses file Excel!');
+        }
+    }
+
+    private function pushUploadNote(array &$notes, int $maxNotes, string $note): void
+    {
+        if (count($notes) < $maxNotes) {
+            $notes[] = $note;
         }
     }
 }
